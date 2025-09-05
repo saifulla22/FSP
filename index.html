@@ -1,156 +1,309 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our World</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The World of Us — Entrance</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
-  <script>
-    (function() {
-      emailjs.init("YOUR_EMAILJS_USER_ID"); // 🔹 Replace with your EmailJS User ID
-    })();
-  </script>
+<style>
+  :root{
+    --accent1: #ff7ab6;
+    --accent2: #ff3a7a;
+    --glass: rgba(255,255,255,0.06);
+    --glass-strong: rgba(255,255,255,0.12);
+    --fg: #062029;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue";background:#e9f3fb;color:#0b1220;}
 
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      overflow: hidden;
-    }
+/* ----------------- Background (Taj image) ----------------- */
+  .bg {
+    position:fixed; inset:0; z-index:0;
+    background-image: url("https://images.unsplash.com/photo-1549893070-9b5b0d6d3f2d?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&s=5d083b6db6f6d9b1a9c5b2a0f8f9d7d7");
+    /* If Unsplash hotlink fails, put a file named taj.jpg in the repo and uncomment the next line and comment the Unsplash line:
+       background-image: url('taj.jpg');
+    */
+    background-size: cover;
+    background-position: center 40%;
+    will-change: transform;
+    transform: scale(1);
+    transition: transform 12s cubic-bezier(.22,.9,.2,1), filter 1s ease;
+    filter: saturate(.95) brightness(.95);
+  }
 
-    body {
-      background: url("https://images.unsplash.com/photo-1548013146-72479768bada") no-repeat center center/cover;
-      transition: transform 15s ease;
-    }
+  /* gentle gradient overlay for readability */
+  .bg::after{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(to top, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    pointer-events:none;
+  }
 
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0,0,0,0.3);
-      text-align: center;
-    }
+/* ----------------- Stage/wrap ----------------- */
+  .stage {
+    position:relative; z-index:6;
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:36px;
+    text-align:center;
+  }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease forwards;
-    }
+  .card {
+    max-width:980px; width:100%;
+    display:grid; grid-template-columns: 1fr; gap:18px; align-items:center;
+    place-items:center;
+  }
 
-    button {
-      padding: 12px 24px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(5px);
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+/* Headline */
+  .title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(26px, 4.2vw, 48px);
+    line-height:1.02;
+    color: #fff;
+    text-shadow: 0 18px 40px rgba(5,20,30,0.5);
+    font-weight:600;
+    letter-spacing:.2px;
+    margin:0;
+  }
 
-    button:hover {
-      background: rgba(255, 255, 255, 0.4);
-    }
+  .subtitle {
+    color: rgba(255,255,255,0.95);
+    font-size: clamp(14px, 1.5vw, 18px);
+    margin:0;
+    max-width:820px;
+    font-weight:500;
+    text-shadow: 0 10px 30px rgba(5,20,30,0.35);
+  }
 
-    .hidden {
-      display: none;
-    }
+/* Enter button (appears after 3s) */
+  .enter {
+    margin-top:18px;
+    appearance:none; -webkit-appearance:none;
+    background: linear-gradient(90deg,var(--accent1),var(--accent2));
+    color:#062029;
+    border:none; padding:14px 26px; border-radius:999px;
+    font-weight:700; font-size:16px; cursor:pointer;
+    box-shadow: 0 12px 40px rgba(255,80,160,0.18);
+    transform: translateY(0);
+    opacity:0; pointer-events:none;
+    transition: opacity .45s ease, transform .25s ease;
+  }
+  .enter.visible { opacity:1; pointer-events:auto; transform: translateY(0); }
 
-    #message-section {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(8px);
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 400px;
-    }
+/* Cinematic caption at bottom */
+  .caption {
+    position: fixed; left:50%; bottom:28px; transform:translateX(-50%);
+    z-index:7; background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    padding:10px 16px; border-radius:999px; color:#fff; font-weight:600;
+    backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    font-size:14px;
+  }
 
-    #message-form textarea {
-      width: 100%;
-      height: 100px;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      resize: none;
-      margin-bottom: 10px;
-      font-family: inherit;
-    }
+/* ----------------- Gate object (center) ----------------- */
+  .gate-wrap {
+    pointer-events:none; position: fixed; inset:0; z-index:5; display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom:8vh;
+  }
+  .gate {
+    width:360px; height:200px; display:flex; justify-content:center; align-items:flex-end; gap:8px; perspective:1200px;
+  }
+  .gate-panel {
+    width:160px; height:200px;
+    background: linear-gradient(180deg,#4a4a4a,#222);
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    color: #ffd66b; font-size:34px; box-shadow: 0 14px 30px rgba(0,0,0,0.45);
+    transform-origin: left center;
+    transform: rotateY(0deg);
+    transition: transform 2s cubic-bezier(.22,.9,.2,1);
+  }
+  .gate-panel.right { transform-origin: right center; }
 
-    #message-form button {
-      width: 100%;
-      background: #ff4d6d;
-      color: white;
-    }
+/* closed state */
+  .gate-closed .gate-panel.left { transform: rotateY(85deg); }
+  .gate-closed .gate-panel.right{ transform: rotateY(-85deg); }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+/* ----------------- Gate overlay modal (message) ----------------- */
+  .gate-modal {
+    position: fixed; inset:0; z-index: 10; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(180deg, rgba(3,3,3,0.5), rgba(3,3,3,0.35));
+    opacity:0; pointer-events:none; transition: opacity .45s ease;
+  }
+  .gate-modal.visible { opacity:1; pointer-events:auto; }
+
+  .modal-card {
+    width: min(820px,92%); background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border-radius:14px; padding:28px; color:#fff; box-shadow: 0 22px 70px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(10px);
+  }
+  .modal-title { font-size: 22px; color: #ffd9ec; margin-bottom:8px; font-weight:700; }
+  .modal-text { color: #ffeeff; opacity:.95; margin-bottom:18px; line-height:1.45; }
+
+  .form-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  .form-grid .full{ grid-column: 1 / -1; }
+
+  .input, textarea {
+    width:100%; padding:12px 14px; border-radius:10px; border:none; background: rgba(0,0,0,0.25); color:#fff;
+    font-size:15px; outline:none;
+  }
+  textarea{ min-height:120px; resize:vertical; }
+
+  .send {
+    margin-top:10px; padding:12px 16px; border-radius:999px; border:none; cursor:pointer;
+    background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#04141a; font-weight:800;
+    box-shadow: 0 12px 36px rgba(255,80,160,0.16);
+  }
+
+  .note-small{ font-size:13px; color: rgba(255,255,255,0.85); margin-top:8px; }
+
+/* responsiveness */
+  @media (max-width:880px){
+    .form-grid{ grid-template-columns: 1fr; }
+    .gate{ width:260px; }
+    .title{ font-size:28px; }
+  }
+
+</style>
 </head>
 <body>
-  <div class="overlay">
-    <h1 id="welcome-text">Welcome to Our New World 💕</h1>
-    <button id="enter-btn" class="hidden">Do you want to enter?</button>
+
+  <!-- cinematic bg -->
+  <div class="bg" id="bg"></div>
+
+  <!-- main stage -->
+  <main class="stage" role="main" aria-labelledby="heading">
+    <div class="card">
+      <h1 id="heading" class="title">Welcome to our new world</h1>
+      <p class="subtitle">A private place reserved for us — small surprises, gentle mystery, and a message waiting.</p>
+
+      <!-- enter button (appears after 3s) -->
+      <button id="enterBtn" class="enter" aria-label="Do you want to enter?">Do you want to enter?</button>
+    </div>
+  </main>
+
+  <!-- cinematic caption -->
+  <div class="caption" id="caption">Click enter to begin the journey</div>
+
+  <!-- center gate (pure CSS panels) -->
+  <div class="gate-wrap" id="gateWrap" aria-hidden="true">
+    <div class="gate" id="gate">
+      <div class="gate-panel left" aria-hidden="true">♥</div>
+      <div class="gate-panel right" aria-hidden="true">♥</div>
+    </div>
   </div>
 
-  <div id="message-section" class="hidden">
-    <h2>Sorry, before Nikah the gate won’t open 😏</h2>
-    <p>Meanwhile, send me your secret message 💌</p>
-    <form id="message-form">
-      <textarea id="message" placeholder="Type your message here..." required></textarea>
-      <button type="submit">Send</button>
-    </form>
-    <p id="status"></p>
+  <!-- modal shown when gate reached + closed -->
+  <div class="gate-modal" id="gateModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-title">Itni jaldi? 😏</div>
+      <div class="modal-text">Before Nikah the gate won't open. But I've left you a place to send a secret message — I will get it in my inbox.</div>
+
+      <!-- FormSubmit (no backend) - REPLACE YOUR_EMAIL_HERE with your email -->
+      <form id="secretForm" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST" class="form-grid">
+        <!-- recommended: first-time you'll receive a confirmation email from FormSubmit -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://YOUR_USERNAME.github.io/YOUR_REPO/thankyou.html">
+        <input class="input" name="name" type="text" placeholder="Your name (optional)">
+        <input class="input" name="subject" type="text" placeholder="Subject (optional)">
+
+        <textarea class="input full" name="message" placeholder="Write your secret message..." required></textarea>
+
+        <button class="send full" type="submit">Send Secret Message ✉️</button>
+      </form>
+
+      <div class="note-small">Tip: the first message will require one-time confirmation via email (FormSubmit). After that messages will deliver directly.</div>
+    </div>
   </div>
 
-  <script>
-    window.onload = () => {
-      const enterBtn = document.getElementById("enter-btn");
-      const messageSection = document.getElementById("message-section");
+<script>
+/* Timeline / cinematic control
+   - Enter button appears after 3s
+   - On click: background zooms slowly (12s), caption changes.
+   - After zoom ends: gate panels rotate closed (2s)
+   - After gate closed: show modal with form
+   - Total watch time before message: ~14s
+*/
 
-      // Show button after 3s
-      setTimeout(() => {
-        enterBtn.classList.remove("hidden");
-      }, 3000);
+/* Elements */
+const enterBtn = document.getElementById('enterBtn');
+const bg = document.getElementById('bg');
+const caption = document.getElementById('caption');
+const gateWrap = document.getElementById('gateWrap');
+const gate = document.getElementById('gate');
+const gateModal = document.getElementById('gateModal');
 
-      // Zoom effect + show message form
-      enterBtn.addEventListener("click", () => {
-        document.body.style.transform = "scale(1.5)";
-        setTimeout(() => {
-          messageSection.classList.remove("hidden");
-        }, 6000); // show form after zoom
-      });
+/* show enter button after exactly 3s */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    enterBtn.classList.add('visible');
+    enterBtn.setAttribute('aria-hidden','false');
+  }, 3000);
+});
 
-      // EmailJS form submission
-      document.getElementById("message-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-          message: document.getElementById("message").value
-        }).then(() => {
-          document.getElementById("status").innerText = "Message sent successfully 💌";
-          this.reset();
-        }, () => {
-          document.getElementById("status").innerText = "Failed to send message ❌";
-        });
-      });
-    };
-  </script>
+/* When Enter is clicked */
+enterBtn.addEventListener('click', startJourney);
+enterBtn.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') startJourney(); });
+
+let journeyStarted = false;
+function startJourney(){
+  if(journeyStarted) return;
+  journeyStarted = true;
+
+  // UI feedback
+  enterBtn.disabled = true;
+  enterBtn.style.transform = 'translateY(4px) scale(.99)';
+  caption.textContent = 'Approaching the gate...';
+
+  // Cinematic zoom - long smooth animation
+  bg.style.transform = 'scale(1.65) translateY(-4%)';
+  bg.style.filter = 'saturate(1.03) contrast(1.02)';
+
+  // make gate visible (panels already in place but pointer-events off)
+  gateWrap.style.opacity = '1';
+
+  // after zoom duration (12s), animate gate closing
+  const zoomDuration = 12000;
+  setTimeout(() => {
+    document.body.classList.add('gate-closed'); // for CSS closed state
+    // apply closed class: we toggle on gateWrap parent
+    gateWrap.classList.add('gate-closed');
+
+    // small caption change
+    caption.textContent = 'Gate reached — status: closed';
+
+    // After panels finish rotating (~2s), show modal
+    setTimeout(() => {
+      gateModal.classList.add('visible');
+      gateModal.setAttribute('aria-hidden','false');
+      caption.textContent = 'Leave a secret message';
+      // make form focusable
+      const firstInput = document.querySelector('#secretForm input, #secretForm textarea');
+      if(firstInput) firstInput.focus();
+    }, 2000);
+  }, zoomDuration + 500); // slight pause after zoom
+}
+
+/* Small enhancement: prevent accidental navigation on mobile pinch-zoom etc. */
+window.addEventListener('resize', () => {
+  // keep calm, no heavy re-layout
+});
+
+/* Optional: Inline submission UX (we let FormSubmit handle delivery).
+   But we intercept to show instant confirmation before redirect (optional).
+*/
+const secretForm = document.getElementById('secretForm');
+secretForm.addEventListener('submit', (e) => {
+  // Let the normal form submit proceed (safer for FormSubmit).
+  // If you want to use AJAX to avoid the redirect, you can implement fetch here.
+  // For now, we show a quick UI hint and allow the browser to continue.
+  const sendBtn = secretForm.querySelector('.send');
+  sendBtn.disabled = true;
+  sendBtn.textContent = 'Sending...';
+  // no preventDefault -> FormSubmit will show confirmation email for first-time setup.
+});
+
+</script>
+
 </body>
 </html>
