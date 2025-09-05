@@ -4,218 +4,193 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our World Together</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #0c0c1d;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(to top, #3c9e3c 30%, #87ceeb 100%); /* grass + sky */
     }
 
-    /* Scene container */
+    /* Ground */
+    .ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, #2e7d32, #43a047);
+      z-index: 0;
+    }
+
+    /* Welcome text */
+    .welcome {
+      position: absolute;
+      top: 10%;
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      color: #ff1493;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(255,255,255,0.8);
+      animation: fadeIn 2s ease forwards;
+      z-index: 5;
+    }
+
+    .enter-text {
+      position: absolute;
+      top: 18%;
+      width: 100%;
+      text-align: center;
+      font-size: 1.4rem;
+      color: #d6336c;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 2.5s;
+      z-index: 5;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Scene */
     .scene {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      transition: transform 4s ease, opacity 2s ease;
-      background: linear-gradient(to bottom, #0c0c1d, #1a1a3a);
-      overflow: hidden;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.2); /* far away */
+      transition: transform 12s ease-in-out;
+      width: 700px;
+      height: 500px;
+      z-index: 1;
     }
-    .hidden { opacity: 0; pointer-events: none; }
 
-    /* Stars */
-    .stars {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
+    .taj {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
-    .star {
-      position: absolute; background: white;
+    .dome {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 200px;
+      background: radial-gradient(circle, #fff, #ddd);
       border-radius: 50%;
-      animation: twinkle 5s infinite;
+      box-shadow: 0 0 25px rgba(255,255,255,0.7);
     }
-    @keyframes twinkle { 0%,100%{opacity:.2;} 50%{opacity:1;} }
+    .building {
+      position: absolute;
+      top: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 280px;
+      background: linear-gradient(to bottom,#fff,#ccc);
+      border: 5px solid #bbb;
+      border-radius: 15px;
+    }
+    .gate {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 150px;
+      background: linear-gradient(to bottom,#444,#111);
+      border-radius: 10px;
+      transition: transform 3s ease;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size: 2rem;
+      color:#ffd700;
+    }
+    .gate.closed { transform: translateX(-50%) rotateY(80deg); }
 
-    /* Landing */
-    .landing-content {
-      text-align: center; z-index: 10;
-      padding: 30px;
-      background: rgba(0,0,0,.5);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,105,180,.3);
-      box-shadow: 0 0 30px rgba(255,105,180,.4);
-      max-width: 500px;
-      animation: fadeIn 3s forwards;
-    }
-    @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
-
-    h1 {
-      font-size: 2.5rem; margin-bottom: 20px;
-      color: #ff69b4; text-shadow: 0 0 10px rgba(255,105,180,.7);
-    }
-    p { font-size: 1.2rem; margin-bottom: 25px; color: #f8d7da; }
-
-    button {
-      margin-top: 20px; padding: 15px 35px;
-      border: none; border-radius: 50px;
-      background: linear-gradient(to right,#ff69b4,#ff1493);
-      color: white; font-weight: bold; font-size: 1.2rem;
-      cursor: pointer; transition: all .3s ease;
-      box-shadow: 0 0 15px rgba(255,105,180,.7);
-    }
-    button:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,105,180,.9); }
-    button i { margin-left: 10px; }
-
-    /* House Scene */
-    .house-container {
-      position: relative; width: 600px; height: 500px;
-      display: flex; justify-content: center; align-items: flex-end;
-    }
-    .house {
-      position: relative; width: 400px; height: 300px;
-      background: linear-gradient(to bottom,#8b4513,#6b3100);
-      border-top-left-radius: 20px; border-top-right-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,.7);
-    }
-    .roof {
-      position: absolute; top:-100px; width: 500px; height: 150px;
-      background: linear-gradient(to bottom,#b22222,#8b0000);
-      clip-path: polygon(0% 100%,50% 0%,100% 100%);
-    }
-    .door {
-      position: absolute; bottom:0; left:50%; transform:translateX(-50%);
-      width:100px; height:180px;
-      background: linear-gradient(to bottom,#a52a2a,#5d1f1f);
-      border-top-left-radius:10px; border-top-right-radius:10px;
-    }
-
-    /* Gate */
-    .gate { position:absolute; bottom:0; left:50%; transform:translateX(-50%);
-      width:300px; height:200px; display:flex; justify-content:center; z-index:5; }
-    .gate-door {
-      position: absolute; bottom:0; width:120px; height:180px;
-      background: linear-gradient(to bottom,#36454f,#2c3e50);
-      border-top-left-radius:10px; border-top-right-radius:10px;
-      display:flex; justify-content:center; align-items:center;
-      color:#ffd700; font-size:2rem;
-      box-shadow: 0 0 15px rgba(0,0,0,.6);
-      transition: transform 2s ease;
-    }
-    .gate-door.closed { transform: rotateY(80deg); }
-
-    /* Final Message */
-    .message {
-      position: absolute; top: 50%; left: 50%;
+    /* Message box */
+    .message-box {
+      position: absolute;
+      top: 55%; left: 50%;
       transform: translate(-50%,-50%);
-      background: rgba(0,0,0,.85);
-      padding: 25px 40px; border-radius: 15px;
-      text-align: center; z-index: 20;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,105,180,.5);
-      box-shadow: 0 0 30px rgba(255,105,180,.6);
-      max-width: 80%; display: none;
+      background: rgba(0,0,0,0.85);
+      padding: 25px 35px;
+      border-radius: 15px;
+      text-align: center;
+      width: 80%; max-width: 400px;
+      border: 1px solid rgba(255,150,200,0.5);
+      box-shadow: 0 0 20px rgba(255,100,200,0.6);
+      display: none;
+      z-index: 10;
+      color: white;
     }
-    .message h2 { color:#ff69b4; margin-bottom:15px; font-size:2rem; }
-    .message p { color:#f8d7da; font-size:1.2rem; margin-bottom:20px; }
+    .message-box h2 { color:#ff69b4; margin-bottom:15px; }
+    .message-box p { margin-bottom: 20px; color:#ffe6f2; }
 
-    /* Secret Message Form */
-    form {
-      display: flex; flex-direction: column;
-      gap: 15px; margin-top: 20px;
-    }
+    /* Form */
+    form { display:flex; flex-direction:column; gap:10px; }
     input, textarea {
-      padding: 12px; border-radius: 10px; border: none;
-      font-size: 1rem; resize: none;
+      padding:10px; border-radius:8px; border:none;
+      font-size:1rem;
     }
     textarea { min-height: 100px; }
-    .form-btn {
+    button {
+      padding:12px;
       background: linear-gradient(to right,#ff69b4,#ff1493);
-      color: white; font-weight: bold; cursor: pointer;
-      padding: 12px; border-radius: 50px; border:none;
-      transition:.3s;
+      color:white; border:none; border-radius:50px;
+      font-weight:bold; cursor:pointer; transition:.3s;
     }
-    .form-btn:hover { transform: scale(1.05); }
+    button:hover { transform: scale(1.05); }
   </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
+  <!-- Ground -->
+  <div class="ground"></div>
 
-  <!-- Landing -->
-  <div class="scene" id="landing">
-    <div class="landing-content">
-      <h1>Do you want to enter our world?</h1>
-      <p>A journey of love and togetherness begins here...</p>
-      <button onclick="startEntrance()">Enter Our World <i class="fas fa-heart"></i></button>
+  <!-- Text -->
+  <div class="welcome">Welcome to our new world 💕</div>
+  <div class="enter-text">Do you want to enter?</div>
+
+  <!-- House Scene -->
+  <div class="scene" id="scene">
+    <div class="taj">
+      <div class="dome"></div>
+      <div class="building"></div>
+      <div class="gate" id="gate">♥</div>
     </div>
   </div>
 
-  <!-- House Scene -->
-  <div class="scene hidden" id="house-scene">
-    <div class="house-container">
-      <div class="roof"></div>
-      <div class="house">
-        <div class="door"></div>
-      </div>
-      <div class="gate">
-        <div class="gate-door" id="gate-door"><i class="fas fa-heart"></i></div>
-      </div>
-    </div>
-
-    <div class="message" id="final-message">
-      <h2>Itni jaldi? 😏</h2>
-      <p>Wait for our Nikah... but until then, you can leave me a secret message!</p>
-      
-      <!-- Secret Message Form -->
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <textarea name="message" placeholder="Write your secret message..." required></textarea>
-        <button type="submit" class="form-btn">Send Message <i class="fas fa-envelope"></i></button>
-      </form>
-    </div>
+  <!-- Final message -->
+  <div class="message-box" id="message-box">
+    <h2>Sorry 😏</h2>
+    <p>Before Nikah the gate won’t open… but meanwhile you can send me a secret message 💌</p>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <textarea name="message" placeholder="Write your secret message..." required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
   </div>
 
   <script>
-    function createStars() {
-      const stars = document.getElementById('stars');
-      for (let i = 0; i < 150; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.width = Math.random() * 3 + 'px';
-        star.style.height = star.style.width;
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.animationDelay = Math.random() * 5 + 's';
-        stars.appendChild(star);
-      }
-    }
+    window.onload=function(){
+      const scene=document.getElementById('scene');
+      const gate=document.getElementById('gate');
+      const msg=document.getElementById('message-box');
 
-    function startEntrance() {
-      const landing = document.getElementById('landing');
-      const houseScene = document.getElementById('house-scene');
-      landing.style.opacity = '0';
-      setTimeout(() => {
-        landing.classList.add('hidden');
-        houseScene.classList.remove('hidden');
-        setTimeout(() => {
-          document.getElementById('gate-door').classList.add('closed');
-          setTimeout(() => {
-            document.getElementById('final-message').style.display = 'block';
-          }, 2000);
-        }, 2000);
-      }, 2000);
-    }
+      // Zoom in after 3s
+      setTimeout(()=>{ scene.style.transform="translateX(-50%) scale(1)"; },3000);
 
-    window.onload = createStars;
+      // Close gate
+      setTimeout(()=>{ gate.classList.add('closed'); },15000);
+
+      // Show message
+      setTimeout(()=>{ msg.style.display='block'; },18000);
+    }
   </script>
 </body>
 </html>
