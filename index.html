@@ -1,84 +1,156 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  overflow: hidden;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our World</title>
 
-body {
-  background: url("https://images.unsplash.com/photo-1548013146-72479768bada") no-repeat center center/cover;
-  transition: transform 15s ease;
-}
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-.overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.3);
-  text-align: center;
-}
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("YOUR_EMAILJS_USER_ID"); // 🔹 Replace with your EmailJS User ID
+    })();
+  </script>
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  animation: fadeIn 2s ease forwards;
-}
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
 
-button {
-  padding: 12px 24px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+    body {
+      background: url("https://images.unsplash.com/photo-1548013146-72479768bada") no-repeat center center/cover;
+      transition: transform 15s ease;
+    }
 
-button:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.3);
+      text-align: center;
+    }
 
-.hidden {
-  display: none;
-}
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease forwards;
+    }
 
-#message-section {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(8px);
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  max-width: 400px;
-}
+    button {
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-#message-form textarea {
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  resize: none;
-  margin-bottom: 10px;
-}
+    button:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
 
-#message-form button {
-  width: 100%;
-  background: #ff4d6d;
-  color: white;
-}
-  
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+    .hidden {
+      display: none;
+    }
+
+    #message-section {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    #message-form textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      resize: none;
+      margin-bottom: 10px;
+      font-family: inherit;
+    }
+
+    #message-form button {
+      width: 100%;
+      background: #ff4d6d;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1 id="welcome-text">Welcome to Our New World 💕</h1>
+    <button id="enter-btn" class="hidden">Do you want to enter?</button>
+  </div>
+
+  <div id="message-section" class="hidden">
+    <h2>Sorry, before Nikah the gate won’t open 😏</h2>
+    <p>Meanwhile, send me your secret message 💌</p>
+    <form id="message-form">
+      <textarea id="message" placeholder="Type your message here..." required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    window.onload = () => {
+      const enterBtn = document.getElementById("enter-btn");
+      const messageSection = document.getElementById("message-section");
+
+      // Show button after 3s
+      setTimeout(() => {
+        enterBtn.classList.remove("hidden");
+      }, 3000);
+
+      // Zoom effect + show message form
+      enterBtn.addEventListener("click", () => {
+        document.body.style.transform = "scale(1.5)";
+        setTimeout(() => {
+          messageSection.classList.remove("hidden");
+        }, 6000); // show form after zoom
+      });
+
+      // EmailJS form submission
+      document.getElementById("message-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+          message: document.getElementById("message").value
+        }).then(() => {
+          document.getElementById("status").innerText = "Message sent successfully 💌";
+          this.reset();
+        }, () => {
+          document.getElementById("status").innerText = "Failed to send message ❌";
+        });
+      });
+    };
+  </script>
+</body>
+</html>
