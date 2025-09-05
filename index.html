@@ -5,125 +5,124 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Time Travel — The World of Us</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --bg-tint: rgba(6,14,20,0.48);
-    --accent1: #ffd36b;
-    --accent2: #ff7ab6;
+    --accent1:#ffd36b;
+    --accent2:#ff7ab6;
     --glass: rgba(255,255,255,0.06);
-    --glass-strong: rgba(255,255,255,0.12);
+    --bg-dark: #070b0f;
+    --fg: #fff;
   }
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue";background:#0b1220;color:#fff;overflow:hidden}
+  html,body{height:100%;margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue";background:var(--bg-dark);color:var(--fg);overflow:hidden}
 
-  /* background image container - zoom applies only to this */
+/* ===== background image (zoom target) ===== */
   .scene-bg{
     position:fixed; inset:0; z-index:0;
+    /* day-time clock/photo - replace with local 'clock.jpg' if needed */
     background-image: url("https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&s=0b2e88d4f6b7b3af1c2a2c1f8b6d1e6b");
-    /* if hotlink blocked, put clock.jpg in repo and uncomment next line:
-       background-image: url('clock.jpg');
-    */
-    background-size: cover; background-position: center 38%;
+    background-size: cover; background-position: center 45%;
     transform: scale(1); transition: transform 12s cubic-bezier(.22,.9,.2,1), filter 1s ease;
-    filter: saturate(.98) brightness(.94);
+    filter: saturate(.95) brightness(.94);
     will-change: transform;
-    display:flex; align-items:center; justify-content:center;
   }
-  /* soft vignette */
-  .scene-bg::after{ content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(6,8,12,0.25), rgba(0,0,0,0.25)); }
+  .scene-bg::after{ content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(6,8,12,0.18), rgba(0,0,0,0.16)); pointer-events:none; }
 
-  /* top overlay text/button (fixed so text DOES NOT zoom) */
-  .overlay{
-    position:relative; z-index:6; min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px; text-align:center; padding:30px;
-  }
-  .title{
-    font-family: "Cinzel", serif; font-size: clamp(24px, 4vw, 44px); letter-spacing: .6px; color: #fff; text-shadow: 0 20px 40px rgba(4,8,12,0.6);
-    margin:0;
-  }
-  .subtitle{
-    font-size: clamp(14px,1.3vw,18px); color: rgba(255,255,255,0.95); max-width:860px; margin:0; font-weight:500;
+/* ===== overlay that stays fixed (does NOT zoom) ===== */
+  .overlay {
+    position:relative; z-index:6; min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px; text-align:center; padding:40px;
   }
 
-  /* enter button appears after 3s */
+  .title {
+    font-family: "Cinzel", serif;
+    font-size: clamp(22px, 4vw, 44px);
+    color: #fff;
+    margin: 0;
+    text-shadow: 0 18px 40px rgba(0,0,0,0.65);
+  }
+  .subtitle {
+    font-size: clamp(14px, 1.3vw, 18px);
+    color: rgba(255,255,255,0.92);
+    margin:0; max-width:880px;
+  }
+
   .enter {
-    margin-top:8px; padding:12px 26px; border-radius:999px; border:none; cursor:pointer; font-weight:700;
-    background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#07121a; box-shadow:0 12px 36px rgba(255,100,160,0.14);
-    opacity:0; pointer-events:none; transform:translateY(6px); transition: opacity .45s ease, transform .25s ease;
+    margin-top: 8px; padding: 12px 26px; border-radius:999px; border:none; cursor:pointer; font-weight:700;
+    background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#07121a;
+    box-shadow: 0 14px 40px rgba(255,80,160,0.14);
+    opacity:0; pointer-events:none; transform: translateY(6px); transition: opacity .45s ease, transform .25s ease;
   }
-  .enter.visible{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  .enter.visible { opacity:1; pointer-events:auto; transform: translateY(0); }
 
   .caption{
-    position:fixed; left:50%; bottom:28px; transform:translateX(-50%); z-index:6;
-    background: rgba(255,255,255,0.03); padding:10px 14px; border-radius:999px; font-weight:600; color:#fff; font-size:13px;
+    position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:6;
+    background: rgba(255,255,255,0.03); padding:10px 14px; border-radius:999px; color:#fff; font-weight:600; font-size:13px;
     border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(6px);
   }
 
-  /* center clock/portal container (visual only; sits above bg but below overlay) */
-  .center-scene {
-    position: fixed; inset:0; z-index:3; display:flex; align-items:center; justify-content:center; pointer-events:none;
-  }
+/* ===== center clock/portal visual (stays above bg but below overlay) ===== */
+  .center-scene { position: fixed; inset:0; z-index:3; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+  .clock-wrap { width: 520px; max-width:70vw; transform: scale(0.9); transition: transform .9s ease; }
+  svg.clock{ width:100%; height:auto; display:block; filter: drop-shadow(0 20px 60px rgba(0,0,0,0.55)); }
 
-  /* stylized clock + portal (SVG-based) */
-  .clock-wrap { width: 520px; max-width:70vw; transform: scale(0.8); transition: transform 0.8s ease; }
-  svg.clock { width:100%; height:auto; display:block; filter: drop-shadow(0 18px 40px rgba(0,0,0,0.45)); }
+/* hand/gear animations */
+  .gear { transform-origin:center; animation: gear-rotate 8s linear infinite; }
+  @keyframes gear-rotate { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  body.fast-spin .gear { animation-duration: .9s; }
+  body.fast-spin .hand-hour, body.fast-spin .hand-minute, body.fast-spin .hand-second { animation: spinfast 1s linear infinite; }
+  @keyframes spinfast { from{transform:rotate(0)} to{transform:rotate(360deg)} }
 
-  /* rotating hands (CSS animations applied to groups) */
-  .hand-hour { transform-origin:50% 50%; transition: transform 1s linear; }
-  .hand-minute { transform-origin:50% 50%; transition: transform 1s linear; }
-  .hand-second { transform-origin:50% 50%; transition: transform 1s linear; }
-
-  /* gears rotate slow initially */
-  .gear { transform-origin: center; animation: gear-rotate 8s linear infinite; }
-  @keyframes gear-rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-
-  /* fast spin state (applies when active) */
-  .fast-spin .gear { animation-duration: 0.9s; }
-  .fast-spin .hand-hour, .fast-spin .hand-minute, .fast-spin .hand-second { transition-duration: .3s; animation: spinfast 1s linear infinite; }
-  @keyframes spinfast { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-
-  /* portal glow - initially hidden scaled 0 */
-  .portal {
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-60%) scale(0); width: 200px; height:200px; border-radius:50%;
-    z-index:4; pointer-events:none;
-    background: radial-gradient(circle at 30% 30%, rgba(255,200,120,0.95), rgba(255,120,200,0.18) 40%, transparent 60%);
-    box-shadow: 0 0 80px rgba(255,140,200,0.25), inset 0 0 30px rgba(255,220,140,0.12);
-    transition: transform 1.1s cubic-bezier(.22,.9,.2,1), opacity .6s ease;
-    opacity:0;
+/* portal */
+  .portal { position:absolute; left:50%; top:50%; transform:translate(-50%,-60%) scale(0); width:220px; height:220px; border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,200,120,0.95), rgba(255,120,200,0.18) 36%, rgba(255,120,200,0.06) 60%, transparent 72%);
+    box-shadow: 0 0 90px rgba(255,140,200,0.24), inset 0 0 40px rgba(255,220,140,0.08); transition: transform 1.1s cubic-bezier(.22,.9,.2,1), opacity .6s ease;
+    opacity:0; z-index:4; pointer-events:none;
   }
   .portal.open { transform:translate(-50%,-60%) scale(1.35); opacity:1; }
 
-  /* modal (appears after portal closes) */
-  .modal {
-    position: fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:9; pointer-events:none;
-    opacity:0; transition: opacity .4s ease;
-  }
-  .modal.visible{ opacity:1; pointer-events:auto; }
-  .modal-card {
-    width:min(820px,94%); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    border-radius:12px; padding:22px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(8px);
-  }
-  .modal-card h3{ margin:0 0 8px 0; color: #ffdfe8; font-size:22px; font-weight:700; }
-  .modal-card p{ margin:0 0 12px 0; color:#fff; opacity:.95; }
+/* modal (quiz / result / message form) */
+  .modal { position: fixed; inset:0; z-index:9; display:flex; align-items:center; justify-content:center; pointer-events:none; opacity:0; transition: opacity .35s ease; }
+  .modal.visible { pointer-events:auto; opacity:1; }
+  .modal-card { width:min(880px,94%); background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border-radius:12px; padding:20px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); backdrop-filter: blur(8px); color:#fff; }
+  .modal-title{ font-size:20px; margin:0 0 8px 0; color:#ffdfe8; font-weight:700; }
+  .modal-text{ margin:0 0 10px 0; color:#fff; opacity:.95; }
 
-  .form-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
-  .form-row{ grid-column: 1 / -1; display:flex; flex-direction:column; gap:10px; }
-  input, textarea{ padding:12px; border-radius:10px; border:none; background: rgba(0,0,0,0.24); color:#fff; outline:none; }
-  textarea{ min-height:120px; resize:vertical; }
-  .send-btn{ padding:12px 16px; border-radius:999px; border:none; cursor:pointer; font-weight:800; background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#04121a; }
+/* quiz style */
+  .quiz { display:flex; flex-direction:column; gap:12px; }
+  .q { background: rgba(0,0,0,0.18); padding:12px; border-radius:10px; }
+  .options { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+  .opt { padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.06); cursor:pointer; background:rgba(255,255,255,0.02); }
+  .opt.selected { background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#07121a; font-weight:700; }
 
-  /* small note */
-  .note { font-size:13px; color:rgba(255,255,255,0.85); margin-top:8px; }
+  .btn-row { display:flex; gap:10px; margin-top:12px; justify-content:flex-end; }
+  .btn { padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; background: rgba(255,255,255,0.06); color:#fff; }
+  .btn.primary { background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#07121a; }
 
-  /* responsive tweaks */
+/* message form */
+  .form-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:10px; }
+  input, textarea { padding:10px; border-radius:10px; border:none; background: rgba(0,0,0,0.18); color:#fff; outline:none; }
+  textarea { min-height:120px; resize:vertical; grid-column: 1 / -1; }
+  .send { padding:12px 16px; border-radius:999px; border:none; cursor:pointer; background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#04121a; font-weight:800; }
+
+  .note { font-size:13px; color:rgba(255,255,255,0.88); margin-top:8px; }
+
   @media (max-width:720px){
-    .clock-wrap{ transform: scale(0.7) }
+    .clock-wrap{ transform: scale(0.72) }
+    .form-grid{ grid-template-columns: 1fr; }
     .title{ font-size:20px }
-    .subtitle{ font-size:14px }
-    .form-grid{ grid-template-columns: 1fr }
   }
+
+  /* envelope animation */
+  .envelope {
+    position: absolute; width:60px; height:40px; left:50%; top:55%; transform:translate(-50%,-50%) scale(0.9); z-index:7; opacity:0; transition: transform 1s ease, opacity .6s;
+    pointer-events:none;
+  }
+  .envelope.show { opacity:1; transform:translate(-50%,-20%) scale(1); }
+  .envelope.fly { transition: transform 1.2s cubic-bezier(.22,.9,.2,1), opacity .6s; transform: translate(-45%, -190%) scale(.6); opacity:.0; }
+
 </style>
 </head>
 <body>
@@ -131,10 +130,10 @@
   <!-- background (zoom target) -->
   <div class="scene-bg" id="sceneBg" aria-hidden="true"></div>
 
-  <!-- center decorative clock & portal (non-zooming overlay) -->
+  <!-- center decorative clock & portal -->
   <div class="center-scene" aria-hidden="true">
     <div class="clock-wrap" id="clockWrap" aria-hidden="true">
-      <!-- inline simplified SVG clock (hands + decorative gears) -->
+      <!-- simplified SVG clock -->
       <svg class="clock" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Antique clock">
         <defs>
           <radialGradient id="g1" cx="50%" cy="30%" r="60%">
@@ -144,47 +143,29 @@
           </radialGradient>
         </defs>
 
-        <!-- outer border -->
         <circle cx="400" cy="400" r="350" fill="url(#g1)" stroke="#d7cbb5" stroke-width="8"/>
-        <!-- decorative inner ring -->
         <circle cx="400" cy="400" r="300" fill="rgba(0,0,0,0.02)" stroke="#c8b99f" stroke-width="4"/>
 
-        <!-- hour ticks -->
         <g id="ticks" stroke="#b89f78">
-          <!-- generate 12 ticks -->
-          <!-- simplified: just a few ticks for visuals -->
           <line x1="400" y1="80" x2="400" y2="120" stroke-width="6"/>
           <line x1="400" y1="720" x2="400" y2="680" stroke-width="6"/>
           <line x1="80" y1="400" x2="120" y2="400" stroke-width="6"/>
           <line x1="720" y1="400" x2="680" y2="400" stroke-width="6"/>
         </g>
 
-        <!-- minute hand group -->
         <g class="hand-minute" id="handMin" transform="rotate(0 400 400)">
           <rect x="395" y="140" width="10" height="260" rx="6" fill="#2b2b2b"></rect>
           <circle cx="400" cy="400" r="10" fill="#2b2b2b"></circle>
         </g>
-
-        <!-- hour hand group -->
         <g class="hand-hour" id="handHour" transform="rotate(0 400 400)">
           <rect x="390" y="200" width="20" height="200" rx="8" fill="#3b3b3b"></rect>
         </g>
-
-        <!-- second hand (thin) -->
         <g class="hand-second" id="handSec" transform="rotate(0 400 400)">
           <rect x="398" y="120" width="4" height="300" fill="#c44"></rect>
         </g>
 
-        <!-- simple gear decorative left -->
-        <g class="gear" transform="translate(140,620) scale(.7)">
-          <circle cx="0" cy="0" r="40" fill="#c9b48a" />
-        </g>
-
-        <!-- simple gear decorative right -->
-        <g class="gear" transform="translate(660,120) scale(.8)">
-          <circle cx="0" cy="0" r="32" fill="#c9b48a" />
-        </g>
-
+        <g class="gear" transform="translate(140,620) scale(.7)"><circle cx="0" cy="0" r="40" fill="#c9b48a" /></g>
+        <g class="gear" transform="translate(660,120) scale(.8)"><circle cx="0" cy="0" r="32" fill="#c9b48a" /></g>
       </svg>
     </div>
 
@@ -192,41 +173,38 @@
     <div class="portal" id="portal" aria-hidden="true"></div>
   </div>
 
-  <!-- top overlay text/button (does NOT zoom) -->
+  <!-- envelope (for send animation) -->
+  <div class="envelope" id="envelope" aria-hidden="true">
+    <!-- simple envelope SVG -->
+    <svg viewBox="0 0 64 40" width="64" height="40" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="5" width="62" height="30" rx="4" ry="4" fill="#fff"/>
+      <path d="M1 6 L32 22 L63 6" fill="#ffd36b"/>
+    </svg>
+  </div>
+
+  <!-- overlay (static, not zooming) -->
   <div class="overlay" role="banner">
     <h1 class="title">Welcome to the timeline of our love story</h1>
-    <p class="subtitle">A journey through moments and time — step forward and see what the future feels like.</p>
-    <button id="enterBtn" class="enter" aria-label="Do you want to enter the future with me?">Do you want to enter the future with me?</button>
+    <p class="subtitle">Moments, dreams and the future — step forward if you dare.</p>
+    <button id="enterBtn" class="enter" aria-label="Enter the future">Do you want to enter the future with me?</button>
   </div>
 
   <div class="caption" id="caption">Click enter to begin the journey</div>
 
-  <!-- modal shown after portal closes -->
+  <!-- modal container (used for quiz, result, message) -->
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal-card" role="document">
-      <h3>Not so soon… 😏</h3>
-      <p>Before Nikah the portal won't open. But your words are timeless — send me a secret message and they'll reach me.</p>
-
-      <form id="secretForm" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST" class="form-grid" autocomplete="off">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://YOUR_USERNAME.github.io/YOUR_REPO/thankyou.html">
-        <input class="input" name="name" type="text" placeholder="Your name (optional)">
-        <input class="input" name="subject" type="text" placeholder="Subject (optional)">
-        <textarea name="message" placeholder="Write your secret message..." required></textarea>
-        <div class="form-row">
-          <button class="send-btn" type="submit">Send into the future ✉️</button>
-        </div>
-      </form>
-
-      <div class="note">Note: first message requires one-time confirmation from FormSubmit. After that, messages deliver directly to your inbox.</div>
+    <div class="modal-card" id="modalCard">
+      <!-- content populated by JS -->
     </div>
   </div>
 
 <script>
-/* Timeline:
- - enter button appears after 3s
- - on click: scene background zooms (simulate camera), portal opens and hands speed up
- - after some time portal closes and modal (form) appears
+/* Flow:
+ - show enter after 3s
+ - click enter -> zoom background, speed hands (fast-spin), portal opens
+ - portal stays open briefly -> then portal closes and "door won't open" shown -> quiz shows
+ - after quiz -> show result and then message form
+ - on message submit -> envelope animation and FormSubmit handles delivery
 */
 
 /* elements */
@@ -234,88 +212,231 @@ const enterBtn = document.getElementById('enterBtn');
 const sceneBg = document.getElementById('sceneBg');
 const portal = document.getElementById('portal');
 const modal = document.getElementById('modal');
-const clockWrap = document.getElementById('clockWrap');
+const modalCard = document.getElementById('modalCard');
+const envelope = document.getElementById('envelope');
 const caption = document.getElementById('caption');
 const body = document.body;
 
+let started = false;
+
 /* show enter after 3s */
 window.addEventListener('load', () => {
-  setTimeout(()=> {
+  setTimeout(() => {
     enterBtn.classList.add('visible');
     enterBtn.setAttribute('aria-hidden','false');
   }, 3000);
 });
 
-/* helper: toggle fast spin (adds class to body so CSS rules apply) */
-function setFastSpin(on){
-  if(on) body.classList.add('fast-spin'); else body.classList.remove('fast-spin');
+/* helper: toggle fast spin (applies class on body) */
+function setFastSpin(on) {
+  if (on) body.classList.add('fast-spin'); else body.classList.remove('fast-spin');
 }
 
-/* start journey */
+/* Event: enter clicked */
 enterBtn.addEventListener('click', startJourney);
-enterBtn.addEventListener('keydown', e => { if(e.key === 'Enter') startJourney(); });
+enterBtn.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') startJourney(); });
 
-let started=false;
 function startJourney(){
-  if(started) return;
+  if (started) return;
   started = true;
   enterBtn.disabled = true;
   caption.textContent = 'Time accelerating...';
 
-  // zoom BG only (gives feeling of moving forward)
+  // zoom only background
   sceneBg.style.transform = 'scale(1.55) translateY(-3%)';
   sceneBg.style.filter = 'saturate(1.03) brightness(1.02)';
 
-  // slightly scale clock to feel closer (non-zooming overlay)
-  clockWrap.style.transform = 'scale(1.02)';
+  // small clock scale to feel closer
+  const clockWrap = document.getElementById('clockWrap');
+  if(clockWrap) clockWrap.style.transform = 'scale(1.02)';
 
-  // after a short pause, open portal and speed up hands/gear
+  // after short pause open portal and speed up hands/gears
   setTimeout(() => {
     setFastSpin(true);
     portal.classList.add('open');
     caption.textContent = 'Portal opening...';
-  }, 1600);
+  }, 1400);
 
-  // let the portal stay open for a while, then dramatic close
-  const portalOpenMs = 5200; // how long portal stays open
-  setTimeout(() => {
-    // close portal (shrink)
+  // portal stays open then dramatic close — then show quiz
+  const portalOpenMs = 4200;
+  setTimeout(()=> {
+    // close portal (shrink) -> simulate door closing with message
     portal.classList.remove('open');
     setFastSpin(false);
     caption.textContent = 'Approach stopped';
-    // then show modal (message box) after small delay
+    // show "door won't open" message and then quiz
     setTimeout(()=> {
-      modal.classList.add('visible');
-      modal.setAttribute('aria-hidden','false');
-      caption.textContent = 'Leave a secret message';
-      // focus first input
-      const first = document.querySelector('#secretForm input, #secretForm textarea');
-      if(first) first.focus();
-    }, 900);
-  }, portalOpenMs + 1600);
+      showModalDoorClosed();
+    }, 850);
+  }, portalOpenMs + 1400);
 }
 
-/* optional: intercept form submit to show inline feedback while letting FormSubmit handle delivery */
-const secretForm = document.getElementById('secretForm');
-secretForm.addEventListener('submit', (e) => {
-  // we don't prevent default, FormSubmit will handle POST and confirmation.
-  const btn = secretForm.querySelector('.send-btn');
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
-});
+/* show door-closed modal then quiz */
+function showModalDoorClosed(){
+  // content: door closed message + button to proceed to quiz
+  modalCard.innerHTML = `
+    <div class="modal-title">Not so soon… 😏</div>
+    <div class="modal-text">This door won't open before Nikah. But meanwhile — a little game to pass time.</div>
+    <div style="display:flex;justify-content:flex-end;">
+      <button class="btn primary" id="startQuizBtn">Play Quiz</button>
+    </div>
+  `;
+  modal.classList.add('visible');
+  modal.setAttribute('aria-hidden','false');
 
-/* small: make hands show current time position when page loads (just for realism) */
+  document.getElementById('startQuizBtn').addEventListener('click', () => {
+    showQuiz();
+  });
+}
+
+/* Quiz data (easy to edit) */
+const quiz = [
+  {
+    q: "Which of these would he choose as the ideal weekend?",
+    opts: ["Road trip", "Sleep all day", "Coding all night", "Museum visit"],
+    a: 2 // index of correct/witty answer (this is playful)
+  },
+  {
+    q: "Preferred late-night snack?",
+    opts: ["Biryani", "Samosa", "Pizza", "Chocolate"],
+    a: 3
+  },
+  {
+    q: "Which of these is his hobby?",
+    opts: ["Painting", "Dreaming big", "Gardening", "Dancing"],
+    a: 1
+  }
+];
+
+let answers = []; // store selected indices
+
+function showQuiz(){
+  // build quiz HTML
+  let html = `<div class="modal-title">Quick Challenge — Passing Time ✨</div>
+              <div class="modal-text">Answer these playful questions. No pressure — it's only for fun.</div>
+              <div class="quiz" id="quiz">`;
+
+  quiz.forEach((item, idx) => {
+    html += `<div class="q" data-qi="${idx}">
+               <div style="font-weight:600">${idx+1}. ${item.q}</div>
+               <div class="options">`;
+    item.opts.forEach((opt, oi) => {
+      html += `<div class="opt" data-qi="${idx}" data-oi="${oi}">${opt}</div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  html += `<div class="btn-row">
+             <button class="btn" id="skipQuiz">Skip</button>
+             <button class="btn primary" id="submitQuiz">See Result</button>
+           </div>`;
+  html += `</div>`;
+
+  modalCard.innerHTML = html;
+  // attach listeners
+  modal.classList.add('visible');
+  modal.setAttribute('aria-hidden','false');
+  answers = new Array(quiz.length).fill(null);
+
+  document.querySelectorAll('.opt').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const qi = Number(e.currentTarget.dataset.qi);
+      const oi = Number(e.currentTarget.dataset.oi);
+      answers[qi] = oi;
+      // visual selection
+      const opts = document.querySelectorAll(`.opt[data-qi="${qi}"]`);
+      opts.forEach(o => o.classList.remove('selected'));
+      e.currentTarget.classList.add('selected');
+    });
+  });
+
+  document.getElementById('submitQuiz').addEventListener('click', () => {
+    showQuizResult();
+  });
+  document.getElementById('skipQuiz').addEventListener('click', () => {
+    showMessageForm();
+  });
+}
+
+/* compute result and show playful message */
+function showQuizResult(){
+  // simple scoring: count matching with quiz.a (fun)
+  let score = 0;
+  for(let i=0;i<quiz.length;i++){
+    if(answers[i] === quiz[i].a) score++;
+  }
+  let mood = "Not bad!";
+  if(score === quiz.length) mood = "Impressive — you're sharp! 😏";
+  else if(score >= 1) mood = "Nice attempt! 😉";
+  else mood = "Hah — we kept the mystery intact 😎";
+
+  modalCard.innerHTML = `
+    <div class="modal-title">Quiz Result</div>
+    <div class="modal-text">You scored <strong>${score}/${quiz.length}</strong>. ${mood}</div>
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button class="btn" id="retryQuiz">Retry</button>
+      <button class="btn primary" id="toMessage">Leave a Message</button>
+    </div>
+  `;
+  document.getElementById('toMessage').addEventListener('click', showMessageForm);
+  document.getElementById('retryQuiz').addEventListener('click', showQuiz);
+}
+
+/* show message form */
+function showMessageForm(){
+  modalCard.innerHTML = `
+    <div class="modal-title">Your Secret Message</div>
+    <div class="modal-text">Write your message below. It will be sent to me and kept as a secret until Nikah.</div>
+    <form id="finalForm" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST" autocomplete="off">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://YOUR_USERNAME.github.io/YOUR_REPO/thankyou.html">
+      <div class="form-grid">
+        <input name="name" type="text" placeholder="Your name (optional)">
+        <input name="subject" type="text" placeholder="Subject (optional)">
+        <textarea name="message" placeholder="Write your secret message..." required></textarea>
+      </div>
+      <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+        <button class="send" type="submit">Send into the future ✉️</button>
+      </div>
+    </form>
+    <div class="note">Tip: First message will trigger a one-time confirmation email from FormSubmit. Confirm it and future messages will deliver directly.</div>
+  `;
+  // show modal
+  modal.classList.add('visible');
+  modal.setAttribute('aria-hidden','false');
+
+  // attach submit animation: when form submitted, show envelope fly
+  const finalForm = document.getElementById('finalForm');
+  finalForm.addEventListener('submit', function(e){
+    // let default submit proceed (FormSubmit will handle). Show immediate envelope animation.
+    const sendBtn = finalForm.querySelector('.send');
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Sending...';
+
+    // show envelope, animate into portal
+    envelope.classList.add('show');
+    setTimeout(()=> {
+      envelope.classList.add('fly');
+      // hide modal after animation
+      setTimeout(()=> {
+        envelope.classList.remove('show','fly');
+        modal.classList.remove('visible');
+        modal.setAttribute('aria-hidden','true');
+        caption.textContent = 'Message sent — thank you';
+      }, 1400);
+    }, 200);
+  });
+}
+
+/* set initial clock hands to real time (for realism) */
 (function positionHands(){
-  // calculate rotation for hour/minute/second based on current time
   const now = new Date();
   const s = now.getSeconds();
   const m = now.getMinutes() + s/60;
   const h = (now.getHours() % 12) + m/60;
-
-  const secDeg = s * 6; // 360/60
+  const secDeg = s * 6;
   const minDeg = m * 6;
-  const hourDeg = h * 30; // 360/12
-
+  const hourDeg = h * 30;
   const handSec = document.getElementById('handSec');
   const handMin = document.getElementById('handMin');
   const handHour = document.getElementById('handHour');
@@ -323,6 +444,7 @@ secretForm.addEventListener('submit', (e) => {
   if(handMin) handMin.setAttribute('transform', `rotate(${minDeg} 400 400)`);
   if(handHour) handHour.setAttribute('transform', `rotate(${hourDeg} 400 400)`);
 })();
+
 </script>
 
 </body>
