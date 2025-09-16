@@ -12,50 +12,62 @@
       background-color: #0f2027;
       color: #fff;
       overflow: hidden;
-      text-align: center;
     }
 
-    header {
-      padding: 3rem 1rem;
+    .scene {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+    }
+
+    #scene1 {
+      background: radial-gradient(circle at top, #1c1c3c, #0f2027);
+      z-index: 1;
+    }
+
+    #scene2 {
+      background: linear-gradient(to bottom, #000428, #004e92);
       z-index: 2;
-      position: relative;
     }
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
 
     .verse {
       font-style: italic;
       font-size: 1.2rem;
-      margin-top: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      max-width: 600px;
     }
 
-    #enterWorldBtn {
+    button {
       padding: 1rem 2rem;
       font-size: 1.2rem;
       background-color: #ffd700;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 2rem;
       transition: background-color 0.3s ease;
     }
 
-    #enterWorldBtn:hover {
+    button:hover {
       background-color: #e6c200;
     }
 
-    #stars {
+    .stars {
       position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
-      background: radial-gradient(circle, #1c1c3c 0%, #0f2027 100%);
       overflow: hidden;
+      z-index: 0;
     }
 
     .star {
@@ -65,103 +77,31 @@
       background: white;
       border-radius: 50%;
       opacity: 0.8;
+      animation: twinkle 2s infinite ease-in-out;
     }
 
-    #gate {
-      display: none;
-      font-size: 2rem;
-      margin-top: 2rem;
-      z-index: 2;
-      position: relative;
-    }
-
-    #messageBox {
-      display: none;
-      margin-top: 2rem;
-      z-index: 2;
-      position: relative;
-    }
-
-    textarea {
-      width: 80%;
-      height: 100px;
-      border-radius: 8px;
-      padding: 1rem;
-      font-size: 1rem;
-      border: none;
-      resize: none;
-    }
-
-    #sendMessageBtn {
-      margin-top: 1rem;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      background-color: #00b894;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      color: white;
-    }
-
-    #pigeon {
-      display: none;
-      position: absolute;
-      top: 60%;
-      left: -50px;
-      width: 40px;
-      height: 30px;
-      background-color: #ccc;
-      border-radius: 50% 50% 50% 50%;
-      z-index: 3;
-    }
-
-    #pigeon::after {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 30px;
-      width: 20px;
-      height: 10px;
-      background-color: #eee;
-      border-radius: 2px;
-      transform: rotate(-20deg);
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding: 2rem;
-      font-size: 0.9rem;
-      background-color: rgba(255, 255, 255, 0.1);
-      z-index: 2;
-      position: relative;
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.2; }
     }
   </style>
 </head>
 <body>
-  <div id="stars"></div>
+  <div class="stars" id="stars"></div>
 
-  <header>
+  <div class="scene" id="scene1">
     <h1>Saifulla & Faika</h1>
-    <p>In the name of Allah, the Most Gracious, the Most Merciful</p>
     <p class="verse">“And He placed between you affection and mercy.” <br>– Surah Ar-Rum 30:21</p>
-    <button id="enterWorldBtn">Would you like to enter a new world?</button>
-  </header>
-
-  <div id="gate">🚪 Oh... it will open after 2nd November.</div>
-
-  <div id="messageBox">
-    <p>Leave a secret message for Saifulla:</p>
-    <textarea placeholder="Your message..."></textarea><br>
-    <button id="sendMessageBtn">Send</button>
+    <button id="enterBtn">Would you like to enter a new world?</button>
   </div>
 
-  <div id="pigeon"></div>
-
-  <footer>
-    <p>Alhamdulillah for this blessing. A new world awaits.</p>
-  </footer>
+  <div class="scene" id="scene2">
+    <h1>Exploring the Unknown...</h1>
+    <p class="verse">A journey guided by faith, love, and mystery.</p>
+  </div>
 
   <script>
+    // Create stars
     const starsContainer = document.getElementById("stars");
     for (let i = 0; i < 100; i++) {
       const star = document.createElement("div");
@@ -171,25 +111,16 @@
       starsContainer.appendChild(star);
     }
 
-    const enterBtn = document.getElementById("enterWorldBtn");
-    const gate = document.getElementById("gate");
-    const messageBox = document.getElementById("messageBox");
-    const sendBtn = document.getElementById("sendMessageBtn");
-    const pigeon = document.getElementById("pigeon");
+    // GSAP scene transitions
+    const scene1 = document.getElementById("scene1");
+    const scene2 = document.getElementById("scene2");
+    const enterBtn = document.getElementById("enterBtn");
+
+    gsap.to(scene1, { duration: 2, opacity: 1 });
 
     enterBtn.addEventListener("click", () => {
-      gsap.to("#stars", { duration: 2, opacity: 0.3, scale: 1.2 });
-      gsap.to("header", { duration: 1.5, y: -100, opacity: 0 });
-      setTimeout(() => {
-        gate.style.display = "block";
-        messageBox.style.display = "block";
-        gsap.fromTo("#gate", { opacity: 0 }, { duration: 1.5, opacity: 1 });
-      }, 2000);
-    });
-
-    sendBtn.addEventListener("click", () => {
-      pigeon.style.display = "block";
-      gsap.to("#pigeon", { duration: 5, x: window.innerWidth + 100, y: -200 });
+      gsap.to(scene1, { duration: 2, opacity: 0 });
+      gsap.to(scene2, { duration: 2, opacity: 1, delay: 2 });
     });
   </script>
 </body>
