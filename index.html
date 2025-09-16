@@ -4,18 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saifulla & Faika – A New World Begins</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      background-color: #0f2027;
       color: #fff;
+      overflow: hidden;
       text-align: center;
-      overflow-x: hidden;
     }
 
     header {
       padding: 3rem 1rem;
+      z-index: 2;
+      position: relative;
     }
 
     h1 {
@@ -27,10 +30,6 @@
       font-style: italic;
       font-size: 1.2rem;
       margin-top: 1rem;
-    }
-
-    .section {
-      padding: 2rem 1rem;
     }
 
     #enterWorldBtn {
@@ -48,39 +47,39 @@
       background-color: #e6c200;
     }
 
-    #animationContainer {
-      display: none;
-      position: relative;
-      height: 300px;
-      background: repeating-linear-gradient(
-        to bottom,
-        #1c1c3c,
-        #1c1c3c 2px,
-        #2c2c4c 4px
-      );
-      animation: scrollStars 6s linear forwards;
+    #stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: radial-gradient(circle, #1c1c3c 0%, #0f2027 100%);
+      overflow: hidden;
     }
 
-    @keyframes scrollStars {
-      0% { background-position: center top; }
-      100% { background-position: center bottom; }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
     }
 
     #gate {
       display: none;
-      margin-top: 2rem;
       font-size: 2rem;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      margin-top: 2rem;
+      z-index: 2;
+      position: relative;
     }
 
     #messageBox {
       display: none;
       margin-top: 2rem;
+      z-index: 2;
+      position: relative;
     }
 
     textarea {
@@ -113,7 +112,7 @@
       height: 30px;
       background-color: #ccc;
       border-radius: 50% 50% 50% 50%;
-      animation: flyPigeon 5s linear forwards;
+      z-index: 3;
     }
 
     #pigeon::after {
@@ -128,33 +127,26 @@
       transform: rotate(-20deg);
     }
 
-    @keyframes flyPigeon {
-      0% { left: -50px; top: 60%; }
-      100% { left: 100vw; top: 20%; }
-    }
-
     footer {
       margin-top: 4rem;
       padding: 2rem;
       font-size: 0.9rem;
       background-color: rgba(255, 255, 255, 0.1);
+      z-index: 2;
+      position: relative;
     }
   </style>
 </head>
 <body>
+  <div id="stars"></div>
+
   <header>
     <h1>Saifulla & Faika</h1>
     <p>In the name of Allah, the Most Gracious, the Most Merciful</p>
     <p class="verse">“And He placed between you affection and mercy.” <br>– Surah Ar-Rum 30:21</p>
+    <button id="enterWorldBtn">Would you like to enter a new world?</button>
   </header>
 
-  <div class="section">
-    <h2>Wedding Date</h2>
-    <p>2nd November 2025</p>
-    <button id="enterWorldBtn">Would you like to enter a new world?</button>
-  </div>
-
-  <div id="animationContainer"></div>
   <div id="gate">🚪 Oh... it will open after 2nd November.</div>
 
   <div id="messageBox">
@@ -170,23 +162,34 @@
   </footer>
 
   <script>
+    const starsContainer = document.getElementById("stars");
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.classList.add("star");
+      star.style.top = Math.random() * 100 + "%";
+      star.style.left = Math.random() * 100 + "%";
+      starsContainer.appendChild(star);
+    }
+
     const enterBtn = document.getElementById("enterWorldBtn");
-    const animationContainer = document.getElementById("animationContainer");
     const gate = document.getElementById("gate");
     const messageBox = document.getElementById("messageBox");
     const sendBtn = document.getElementById("sendMessageBtn");
     const pigeon = document.getElementById("pigeon");
 
     enterBtn.addEventListener("click", () => {
-      animationContainer.style.display = "block";
+      gsap.to("#stars", { duration: 2, opacity: 0.3, scale: 1.2 });
+      gsap.to("header", { duration: 1.5, y: -100, opacity: 0 });
       setTimeout(() => {
         gate.style.display = "block";
         messageBox.style.display = "block";
-      }, 6000);
+        gsap.fromTo("#gate", { opacity: 0 }, { duration: 1.5, opacity: 1 });
+      }, 2000);
     });
 
     sendBtn.addEventListener("click", () => {
       pigeon.style.display = "block";
+      gsap.to("#pigeon", { duration: 5, x: window.innerWidth + 100, y: -200 });
     });
   </script>
 </body>
