@@ -1,126 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saifulla & Faika – A New World Begins</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Story of Us</title>
+
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0f2027;
+      padding: 0;
+      background: #1b0e07;
+      font-family: 'Georgia', serif;
       color: #fff;
-      overflow: hidden;
-    }
-
-    .scene {
-      position: absolute;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-    }
-
-    #scene1 {
-      background: radial-gradient(circle at top, #1c1c3c, #0f2027);
-      z-index: 1;
-    }
-
-    #scene2 {
-      background: linear-gradient(to bottom, #000428, #004e92);
-      z-index: 2;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .verse {
-      font-style: italic;
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
       text-align: center;
-      max-width: 600px;
+    }
+
+    /* Book */
+    .book {
+      width: 400px;
+      margin: 80px auto;
+      perspective: 2000px;
+    }
+
+    .cover {
+      background: #4a1c1c;
+      color: gold;
+      font-size: 28px;
+      font-weight: bold;
+      border: 4px solid gold;
+      padding: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .pages {
+      display: none;
+      background: #f4e1c1;
+      border: 2px solid #d4af37;
+      border-radius: 6px;
+      padding: 30px;
+      color: #3b2a1a;
+      font-size: 18px;
+      line-height: 1.6;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.locked {
+      font-weight: bold;
+      color: #5b2c2c;
+    }
+
+    /* Scroll for secret message */
+    .scroll {
+      display: none;
+      margin-top: 50px;
+      background: #f4e1c1;
+      border: 2px solid #d4af37;
+      border-radius: 8px;
+      padding: 20px;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #3b2a1a;
+    }
+
+    .scroll h3 {
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      margin-bottom: 15px;
+      border: 1px solid #d4af37;
+      padding: 10px;
+      font-family: inherit;
     }
 
     button {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      background-color: #ffd700;
+      background: #4a1c1c;
+      color: gold;
       border: none;
-      border-radius: 8px;
+      padding: 10px 20px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
+      border-radius: 5px;
     }
-
     button:hover {
-      background-color: #e6c200;
-    }
-
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: twinkle 2s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 0.2; }
+      background: #5e2a2a;
     }
   </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
+  <!-- Book Container -->
+  <div class="book">
+    <!-- Cover -->
+    <div class="cover">The Story of Us</div>
 
-  <div class="scene" id="scene1">
-    <h1>Saifulla & Faika</h1>
-    <p class="verse">“And He placed between you affection and mercy.” <br>– Surah Ar-Rum 30:21</p>
-    <button id="enterBtn">Would you like to enter a new world?</button>
+    <!-- Pages -->
+    <div class="pages">
+      <div class="page">In this world full of billions, Allah destined us to meet.</div>
+      <div class="page">Our journey will begin with Nikah.</div>
+      <div class="page">But meanwhile, let’s play a little...</div>
+      <div class="page locked">
+        <h2>🔒 Locked</h2>
+        <p>This chapter opens after Nikah 💍</p>
+      </div>
+    </div>
   </div>
 
-  <div class="scene" id="scene2">
-    <h1>Exploring the Unknown...</h1>
-    <p class="verse">A journey guided by faith, love, and mystery.</p>
+  <!-- Secret Message Scroll -->
+  <div class="scroll">
+    <h3>Leave your secret message ✨</h3>
+    <form id="secretForm" action="https://formsubmit.co/YOUR_EMAIL" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <textarea name="message" placeholder="Type your secret message here..." required></textarea>
+      <button type="submit">Send</button>
+    </form>
   </div>
 
   <script>
-    // Create stars
-    const starsContainer = document.getElementById("stars");
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement("div");
-      star.classList.add("star");
-      star.style.top = Math.random() * 100 + "%";
-      star.style.left = Math.random() * 100 + "%";
-      starsContainer.appendChild(star);
+    const cover = document.querySelector(".cover");
+    const pages = document.querySelector(".pages");
+    const pageEls = document.querySelectorAll(".page");
+    const scrollBox = document.querySelector(".scroll");
+
+    let currentPage = 0;
+
+    cover.addEventListener("click", () => {
+      cover.style.display = "none";
+      pages.style.display = "block";
+      showPage(currentPage);
+    });
+
+    function showPage(index) {
+      pageEls.forEach((p, i) => (p.style.display = i === index ? "block" : "none"));
+
+      // After last page, show scroll
+      if (index === pageEls.length - 1) {
+        setTimeout(() => {
+          scrollBox.style.display = "block";
+        }, 2000);
+      }
     }
 
-    // GSAP scene transitions
-    const scene1 = document.getElementById("scene1");
-    const scene2 = document.getElementById("scene2");
-    const enterBtn = document.getElementById("enterBtn");
-
-    gsap.to(scene1, { duration: 2, opacity: 1 });
-
-    enterBtn.addEventListener("click", () => {
-      gsap.to(scene1, { duration: 2, opacity: 0 });
-      gsap.to(scene2, { duration: 2, opacity: 1, delay: 2 });
+    pages.addEventListener("click", () => {
+      if (currentPage < pageEls.length - 1) {
+        currentPage++;
+        showPage(currentPage);
+      }
     });
   </script>
 </body>
