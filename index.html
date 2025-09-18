@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counting the Moments</title>
+    <title>Our Countdown | Secret Messages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -19,22 +20,24 @@
             justify-content: center;
             align-items: center;
             color: #333;
+            padding: 20px;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1000px;
+            width: 100%;
             background: white;
             border-radius: 20px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             text-align: center;
-            margin: 20px;
         }
         
         header {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             padding: 40px 20px;
             color: white;
+            position: relative;
         }
         
         h1 {
@@ -82,12 +85,67 @@
             letter-spacing: 1px;
         }
         
-        .message {
-            padding: 20px;
-            font-style: italic;
-            color: #495057;
+        .message-section {
+            padding: 30px;
+            background: #f8f9fa;
             border-top: 1px solid #e9ecef;
-            margin-top: 20px;
+        }
+        
+        .message-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: #6a11cb;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            resize: none;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.2);
+        }
+        
+        .send-btn {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .send-btn i {
+            margin-right: 8px;
         }
         
         .heart {
@@ -104,6 +162,45 @@
             font-size: 0.9rem;
         }
         
+        /* Pigeon animation */
+        .pigeon {
+            position: fixed;
+            font-size: 40px;
+            z-index: 100;
+            display: none;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        
+        .pigeon.fly {
+            display: block;
+            animation: flyPigeon 4s forwards;
+        }
+        
+        @keyframes flyPigeon {
+            0% {
+                left: 0;
+                transform: translateY(-50%) rotate(0deg);
+            }
+            50% {
+                left: 50%;
+                transform: translateY(-100%) rotate(0deg);
+            }
+            100% {
+                left: 100%;
+                transform: translateY(-50%) rotate(0deg);
+            }
+        }
+        
+        .message-sent {
+            text-align: center;
+            color: #6a11cb;
+            font-weight: 500;
+            margin-top: 20px;
+            display: none;
+        }
+        
         @media (max-width: 600px) {
             .countdown {
                 flex-wrap: wrap;
@@ -115,6 +212,10 @@
             }
             
             .countdown-value {
+                font-size: 2rem;
+            }
+            
+            h1 {
                 font-size: 2rem;
             }
         }
@@ -147,9 +248,18 @@
                     <div class="countdown-label">Seconds</div>
                 </div>
             </div>
-            
-            <div class="message">
-                "Some beautiful paths can't be discovered without getting lost first." - Erol Ozan
+        </div>
+        
+        <div class="message-section">
+            <h2>Send a Secret Message</h2>
+            <div class="message-form">
+                <textarea id="secret-message" placeholder="Type your message here... It will be delivered by a magical pigeon!"></textarea>
+                <button class="send-btn" id="send-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+                <div class="message-sent" id="message-sent">
+                    Your message is on its way! ❤️
+                </div>
             </div>
         </div>
         
@@ -157,6 +267,8 @@
             Made with ❤️ | Our journey begins soon
         </footer>
     </div>
+
+    <div class="pigeon" id="pigeon">🕊️</div>
 
     <script>
         // Set your wedding date here (format: Year, Month-1, Day)
@@ -184,6 +296,39 @@
         
         // Update every second
         setInterval(updateCountdown, 1000);
+        
+        // Message sending functionality
+        document.getElementById('send-btn').addEventListener('click', function() {
+            const message = document.getElementById('secret-message').value.trim();
+            
+            if (message === '') {
+                alert('Please write a message first!');
+                return;
+            }
+            
+            // Show sending animation
+            const pigeon = document.getElementById('pigeon');
+            const messageSent = document.getElementById('message-sent');
+            
+            // Hide button and show animation
+            document.getElementById('send-btn').style.display = 'none';
+            pigeon.classList.add('fly');
+            
+            // After animation completes
+            setTimeout(function() {
+                pigeon.classList.remove('fly');
+                messageSent.style.display = 'block';
+                
+                // Clear the textarea
+                document.getElementById('secret-message').value = '';
+                
+                // Reset after 3 seconds
+                setTimeout(function() {
+                    messageSent.style.display = 'none';
+                    document.getElementById('send-btn').style.display = 'flex';
+                }, 3000);
+            }, 4000);
+        });
     </script>
 </body>
 </html>
