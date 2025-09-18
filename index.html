@@ -1,160 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Story of Us</title>
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #1b0e07;
-      font-family: 'Georgia', serif;
-      color: #fff;
-      text-align: center;
-    }
-
-    /* Book */
-    .book {
-      width: 400px;
-      margin: 80px auto;
-      perspective: 2000px;
-    }
-
-    .cover {
-      background: #4a1c1c;
-      color: gold;
-      font-size: 28px;
-      font-weight: bold;
-      border: 4px solid gold;
-      padding: 40px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-shadow: 1px 1px 4px #000;
-    }
-
-    .pages {
-      display: none;
-      background: #f4e1c1;
-      border: 2px solid #d4af37;
-      border-radius: 6px;
-      padding: 30px;
-      color: #3b2a1a;
-      font-size: 18px;
-      line-height: 1.6;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.locked {
-      font-weight: bold;
-      color: #5b2c2c;
-    }
-
-    /* Scroll for secret message */
-    .scroll {
-      display: none;
-      margin-top: 50px;
-      background: #f4e1c1;
-      border: 2px solid #d4af37;
-      border-radius: 8px;
-      padding: 20px;
-      width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      color: #3b2a1a;
-    }
-
-    .scroll h3 {
-      margin-bottom: 15px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 120px;
-      margin-bottom: 15px;
-      border: 1px solid #d4af37;
-      padding: 10px;
-      font-family: inherit;
-    }
-
-    button {
-      background: #4a1c1c;
-      color: gold;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: bold;
-      border-radius: 5px;
-    }
-    button:hover {
-      background: #5e2a2a;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting the Moments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            margin: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 40px 20px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .countdown-container {
+            padding: 30px;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .countdown-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 100px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #6a11cb;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #6c757d;
+            letter-spacing: 1px;
+        }
+        
+        .message {
+            padding: 20px;
+            font-style: italic;
+            color: #495057;
+            border-top: 1px solid #e9ecef;
+            margin-top: 20px;
+        }
+        
+        .heart {
+            color: #e91e63;
+            font-size: 1.5rem;
+            margin: 10px 0;
+            display: block;
+        }
+        
+        footer {
+            padding: 20px;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .countdown {
+                flex-wrap: wrap;
+            }
+            
+            .countdown-box {
+                min-width: 70px;
+                padding: 15px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Book Container -->
-  <div class="book">
-    <!-- Cover -->
-    <div class="cover">The Story of Us</div>
-
-    <!-- Pages -->
-    <div class="pages">
-      <div class="page">In this world full of billions, Allah destined us to meet.</div>
-      <div class="page">Our journey will begin with Nikah.</div>
-      <div class="page">But meanwhile, let’s play a little...</div>
-      <div class="page locked">
-        <h2>🔒 Locked</h2>
-        <p>This chapter opens after Nikah 💍</p>
-      </div>
+    <div class="container">
+        <header>
+            <h1>Counting the Moments</h1>
+            <p class="subtitle">Until I Get to Call You My Wife</p>
+            <div class="heart">❤️</div>
+        </header>
+        
+        <div class="countdown-container">
+            <div class="countdown">
+                <div class="countdown-box">
+                    <div class="countdown-value" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+            
+            <div class="message">
+                "Some beautiful paths can't be discovered without getting lost first." - Erol Ozan
+            </div>
+        </div>
+        
+        <footer>
+            Made with ❤️ | Our journey begins soon
+        </footer>
     </div>
-  </div>
 
-  <!-- Secret Message Scroll -->
-  <div class="scroll">
-    <h3>Leave your secret message ✨</h3>
-    <form id="secretForm" action="https://formsubmit.co/YOUR_EMAIL" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <textarea name="message" placeholder="Type your secret message here..." required></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </div>
-
-  <script>
-    const cover = document.querySelector(".cover");
-    const pages = document.querySelector(".pages");
-    const pageEls = document.querySelectorAll(".page");
-    const scrollBox = document.querySelector(".scroll");
-
-    let currentPage = 0;
-
-    cover.addEventListener("click", () => {
-      cover.style.display = "none";
-      pages.style.display = "block";
-      showPage(currentPage);
-    });
-
-    function showPage(index) {
-      pageEls.forEach((p, i) => (p.style.display = i === index ? "block" : "none"));
-
-      // After last page, show scroll
-      if (index === pageEls.length - 1) {
-        setTimeout(() => {
-          scrollBox.style.display = "block";
-        }, 2000);
-      }
-    }
-
-    pages.addEventListener("click", () => {
-      if (currentPage < pageEls.length - 1) {
-        currentPage++;
-        showPage(currentPage);
-      }
-    });
-  </script>
+    <script>
+        // Set your wedding date here (format: Year, Month-1, Day)
+        const weddingDate = new Date(2024, 11, 15);
+        
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate - now;
+            
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // Update the display
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Initial update
+        updateCountdown();
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+    </script>
 </body>
 </html>
