@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Journey to Jannah</title>
+    <title>Islamic Marriage Preparation Course</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -18,266 +18,45 @@
             background: linear-gradient(to bottom, #0c1445, #1c2e6d, #2c3e50);
             color: #f8f8f8;
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 20px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            background: rgba(26, 35, 61, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         header {
             text-align: center;
-            padding: 40px 20px;
-            position: relative;
+            padding: 20px 0 40px;
         }
         
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             margin-bottom: 15px;
             background: linear-gradient(to right, #e6d16c, #d4af37);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 10px;
-            color: #d4af37;
-        }
-        
-        .date-display {
-            font-style: italic;
-            margin-top: 20px;
-            color: #a2c1da;
-        }
-        
-        /* Countdown Styles */
-        .countdown-container {
-            padding: 30px;
-            text-align: center;
-            margin: 30px 0;
-            background: rgba(26, 35, 61, 0.6);
-            border-radius: 15px;
-        }
-        
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        .countdown-box {
-            background: linear-gradient(to bottom, #1e3c72, #2a5298);
-            border-radius: 10px;
-            padding: 20px;
-            min-width: 100px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border: 1px solid #3a6186;
-        }
-        
-        .countdown-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #d4af37;
-            margin-bottom: 5px;
-        }
-        
-        .countdown-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            color: #a2c1da;
-            letter-spacing: 1px;
-        }
-        
-        /* Celestial Pathway */
-        .pathway-container {
-            position: relative;
-            margin: 50px auto;
-            height: 600px;
-            width: 95%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.5"/></svg>');
-            background-size: 200px 200px;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        
-        .pathway {
-            position: absolute;
-            top: 50%;
-            left: 5%;
-            right: 5%;
-            height: 8px;
-            background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
-            transform: translateY(-50%);
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(255, 175, 123, 0.5);
-        }
-        
-        .milestone {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #d4af37, #f9e076);
-            border-radius: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        
-        .milestone:hover {
-            transform: translate(-50%, -50%) scale(1.2);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
-        }
-        
-        .milestone.active {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-        }
-        
-        .milestone-label {
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            font-size: 0.9rem;
-            color: #d4af37;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* Revelation Card */
-        .revelation-card {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 90%;
-            max-width: 500px;
-            background: linear-gradient(to bottom, #1e3c72, #2a5298);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 100;
-            transition: transform 0.5s ease;
-            text-align: center;
-            border: 2px solid #d4af37;
-        }
-        
-        .revelation-card.active {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .revelation-card h3 {
-            font-family: 'Playfair Display', serif;
-            color: #d4af37;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .revelation-content {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        
-        .verse {
-            font-style: italic;
-            color: #a2c1da;
-            margin: 15px 0;
-            text-align: right;
-            direction: rtl;
-            font-size: 1.4rem;
-        }
-        
-        .close-btn {
-            background: linear-gradient(to right, #d4af37, #f9e076);
-            color: #1e3c72;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .close-btn:hover {
-            transform: translateY(-3px);
-        }
-        
-        /* Dua Grove */
-        .grove-container {
-            text-align: center;
-            margin: 60px 0;
-            padding: 30px;
-            background: rgba(26, 35, 61, 0.6);
-            border-radius: 15px;
-        }
-        
-        .grove-title {
-            font-family: 'Playfair Display', serif;
-            color: #d4af37;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-        }
-        
-        .dua-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .dua-btn {
-            background: linear-gradient(to right, #3a6186, #89253e);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .dua-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .grove-display {
-            min-height: 200px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-size: 1.2rem;
-            text-align: center;
+            opacity: 0.9;
+            color: #a2c1da;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        /* Islamic Marriage Prep Course */
         .course-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin: 40px 0;
+            margin-top: 20px;
         }
         
         .day-card {
@@ -407,207 +186,24 @@
             border-left: 4px solid #d4af37;
         }
         
-        /* Responsive Design */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .pathway-container {
-                height: 500px;
-            }
-            
-            .milestone-label {
-                font-size: 0.7rem;
-            }
-            
-            .dua-buttons, .countdown {
-                flex-direction: column;
-            }
-            
-            .countdown-box {
-                min-width: 70px;
-                padding: 15px;
-            }
-            
-            .countdown-value {
-                font-size: 2rem;
-            }
-            
             .course-container {
                 grid-template-columns: 1fr;
             }
-        }
-        
-        /* Overlay for modal */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 90;
-            display: none;
-        }
-        
-        .overlay.active {
-            display: block;
-        }
-        
-        /* Crescent moon decoration */
-        .crescent {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: transparent;
-            border-radius: 50%;
-            box-shadow: -10px 10px 0 0 #d4af37;
-            transform: rotate(45deg);
-        }
-        
-        .star {
-            position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            animation: twinkle 4s infinite;
-        }
-        
-        @keyframes twinkle {
-            0% { opacity: 0.2; }
-            50% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-        
-        /* Section Titles */
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            margin: 50px 0 30px;
-            color: #d4af37;
-            font-size: 2.2rem;
-        }
-        
-        /* Navigation */
-        .nav-container {
-            display: flex;
-            justify-content: center;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .nav-btn {
-            background: linear-gradient(to right, #3a6186, #89253e);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-        
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            
+            h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="overlay" id="overlay"></div>
-    
-    <!-- Crescent Moon -->
-    <div class="crescent"></div>
-    
-    <!-- Random Stars -->
-    <div class="star" style="width: 3px; height: 3px; top: 20%; left: 15%;"></div>
-    <div class="star" style="width: 5px; height: 5px; top: 30%; left: 80%; animation-delay: 1s;"></div>
-    <div class="star" style="width: 4px; height: 4px; top: 60%; left: 40%; animation-delay: 2s;"></div>
-    <div class="star" style="width: 3px; height: 3px; top: 75%; left: 25%; animation-delay: 0.5s;"></div>
-    <div class="star" style="width: 4px; height: 4px; top: 45%; left: 65%; animation-delay: 3s;"></div>
-    
     <div class="container">
         <header>
-            <h1>Our Journey to Jannah</h1>
-            <p class="subtitle">Building a Marriage That Extends to the Hereafter</p>
-            <p class="date-display">Counting the days until we begin our eternal journey together</p>
+            <h1>Islamic Marriage Preparation</h1>
+            <p class="subtitle">A 7-day journey to spiritually prepare for married life according to Islamic teachings</p>
         </header>
         
-        <!-- Countdown Timer -->
-        <div class="countdown-container">
-            <h2 class="section-title">Countdown to Our Nikah</h2>
-            <div class="countdown">
-                <div class="countdown-box">
-                    <div class="countdown-value" id="days">00</div>
-                    <div class="countdown-label">Days</div>
-                </div>
-                <div class="countdown-box">
-                    <div class="countdown-value" id="hours">00</div>
-                    <div class="countdown-label">Hours</div>
-                </div>
-                <div class="countdown-box">
-                    <div class="countdown-value" id="minutes">00</div>
-                    <div class="countdown-label">Minutes</div>
-                </div>
-                <div class="countdown-box">
-                    <div class="countdown-value" id="seconds">00</div>
-                    <div class="countdown-label">Seconds</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Navigation -->
-        <div class="nav-container">
-            <button class="nav-btn" onclick="scrollToSection('pathway-section')">Spiritual Pathway</button>
-            <button class="nav-btn" onclick="scrollToSection('prep-course')">Marriage Preparation</button>
-            <button class="nav-btn" onclick="scrollToSection('dua-section')">Garden of Duas</button>
-        </div>
-        
-        <!-- Celestial Pathway -->
-        <h2 class="section-title" id="pathway-section">Our Spiritual Pathway</h2>
-        <div class="pathway-container">
-            <div class="pathway"></div>
-            
-            <!-- Milestones -->
-            <div class="milestone" style="left: 10%;" data-day="1">
-                <div class="milestone-label">Mercy</div>
-            </div>
-            <div class="milestone" style="left: 25%;" data-day="2">
-                <div class="milestone-label">Peace</div>
-            </div>
-            <div class="milestone" style="left: 40%;" data-day="3">
-                <div class="milestone-label">Companionship</div>
-            </div>
-            <div class="milestone" style="left: 55%;" data-day="4">
-                <div class="milestone-label">Patience</div>
-            </div>
-            <div class="milestone" style="left: 70%;" data-day="5">
-                <div class="milestone-label">Gratitude</div>
-            </div>
-            <div class="milestone" style="left: 85%;" data-day="6">
-                <div class="milestone-label">Faith</div>
-            </div>
-            <div class="milestone" style="left: 95%;" data-day="7">
-                <div class="milestone-label">Eternity</div>
-            </div>
-        </div>
-        
-        <!-- Revelation Card -->
-        <div class="revelation-card" id="revelation-card">
-            <h3 id="revelation-title">Mercy Between Hearts</h3>
-            <div class="revelation-content" id="revelation-content">
-                <p>In Islam, mercy is the foundation of a successful marriage. The Prophet Muhammad (PBUH) said: "The most perfect of believers in belief is the best of them in character, and the best of you are those who are best to their women."</p>
-                <p class="verse">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
-                <p>"And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts." (Quran 30:21)</p>
-            </div>
-            <button class="close-btn" id="close-btn">Continue Journey</button>
-        </div>
-        
-        <!-- Islamic Marriage Prep Course -->
-        <h2 class="section-title" id="prep-course">Islamic Marriage Preparation</h2>
         <div class="progress-container">
             <h3 class="progress-title">Your Progress</h3>
             <div class="progress-bar">
@@ -764,92 +360,45 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Dua Grove -->
-        <h2 class="section-title" id="dua-section">Garden of Duas</h2>
-        <div class="grove-container">
-            <h2 class="grove-title">Plant Prayers in Your Spiritual Garden</h2>
-            <p>Select a prayer to nurture your relationship with Allah</p>
-            
-            <div class="dua-buttons">
-                <button class="dua-btn" data-dua="blessing">Blessing for Marriage</button>
-                <button class="dua-btn" data-dua="harmony">Prayer for Harmony</button>
-                <button class="dua-btn" data-dua="guidance">Seeking Guidance</button>
-                <button class="dua-btn" data-dua="patience">Strength in Patience</button>
-            </div>
-            
-            <div class="grove-display" id="grove-display">
-                Select a prayer to begin cultivating your spiritual garden
-            </div>
-        </div>
     </div>
 
     <script>
-        // Set your wedding date here (format: Year, Month-1, Day)
-        const weddingDate = new Date(2024, 11, 15);
+        // Track completed days
+        let completedDays = JSON.parse(localStorage.getItem('completedDays')) || [];
         
-        // Countdown Timer
-        function updateCountdown() {
-            const now = new Date();
-            const diff = weddingDate - now;
+        // Update progress on page load
+        updateProgress();
+        
+        // Check for previously completed days
+        completedDays.forEach(day => {
+            const dayElement = document.getElementById(day);
+            if (dayElement) {
+                dayElement.classList.add('completed');
+            }
+        });
+        
+        function markAsCompleted(dayId) {
+            const dayElement = document.getElementById(dayId);
             
-            // Calculate days, hours, minutes, seconds
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            // Update the display
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            if (!completedDays.includes(dayId)) {
+                completedDays.push(dayId);
+                localStorage.setItem('completedDays', JSON.stringify(completedDays));
+                dayElement.classList.add('completed');
+                updateProgress();
+                
+                // Show completion message
+                alert('MashaAllah! You have completed this lesson. May Allah bless your journey towards marriage.');
+            }
         }
         
-        // Initial update
-        updateCountdown();
-        
-        // Update every second
-        setInterval(updateCountdown, 1000);
-        
-        // Milestone interaction
-        const milestones = document.querySelectorAll('.milestone');
-        const revelationCard = document.getElementById('revelation-card');
-        const overlay = document.getElementById('overlay');
-        const closeBtn = document.getElementById('close-btn');
-        const revelationTitle = document.getElementById('revelation-title');
-        const revelationContent = document.getElementById('revelation-content');
-        const groveDisplay = document.getElementById('grove-display');
-        const duaButtons = document.querySelectorAll('.dua-btn');
-        
-        // Revelation content for each milestone
-        const revelations = {
-            1: {
-                title: "Mercy Between Hearts",
-                content: `<p>In Islam, mercy is the foundation of a successful marriage. The Prophet Muhammad (PBUH) said: "The most perfect of believers in belief is the best of them in character, and the best of you are those who are best to their women."</p>
-                <p class="verse">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
-                <p>"And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts." (Quran 30:21)</p>`
-            },
-            2: {
-                title: "Peace in the Home",
-                content: `<p>A peaceful home is a blessing from Allah. The Quran describes the ideal marital relationship as one filled with tranquility and peace.</p>
-                <p class="verse">هُوَ الَّذِي خَلَقَكُم مِّن نَّفْسٍ وَاحِدَةٍ وَجَعَلَ مِنْهَا زَوْجَهَا لِيَسْكُنَ إِلَيْهَا</p>
-                <p>"It is He who created you from a single soul and made from it its mate that he might dwell in security with her." (Quran 7:189)</p>
-                <p>Reflect on how you can contribute to creating a peaceful atmosphere in your future home.</p>`
-            },
-            3: {
-                title: "Companionship in Worship",
-                content: `<p>The best marriages are those where spouses help each other worship Allah and attain nearness to Him.</p>
-                <p class="verse">رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا</p>
-                <p>"Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous." (Quran 25:74)</p>
-                <p>Consider how you and your spouse can support each other's spiritual growth.</p>`
-            },
-            4: {
-                title: "The Virtue of Patience",
-                content: `<p>Patience (sabr) is among the greatest virtues in Islam, especially in relationships. The Quran promises great reward for those who practice patience.</p>
-                <p class="verse">إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ</p>
-                <p>"Indeed, the patient will be given their reward without account." (Quran 39:10)</p>
-                <p>The patience you exercise now will strengthen your marriage in the future.</p>`
-            },
-            5: {
-                title: "G
+        function updateProgress() {
+            const totalDays = 7;
+            const completed = completedDays.length;
+            const percentage = (completed / totalDays) * 100;
+            
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = Math.round(percentage) + '% Complete';
+        }
+    </script>
+</body>
+</html>
