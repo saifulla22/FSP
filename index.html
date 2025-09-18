@@ -56,6 +56,46 @@
             color: #a2c1da;
         }
         
+        /* Countdown Styles */
+        .countdown-container {
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+            background: rgba(26, 35, 61, 0.6);
+            border-radius: 15px;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 100px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid #3a6186;
+        }
+        
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #a2c1da;
+            letter-spacing: 1px;
+        }
+        
         /* Celestial Pathway */
         .pathway-container {
             position: relative;
@@ -232,6 +272,141 @@
             text-align: center;
         }
         
+        /* Islamic Marriage Prep Course */
+        .course-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .day-card {
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid #3a6186;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #3a6186;
+        }
+        
+        .day-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+        
+        .day-title {
+            font-size: 1.2rem;
+            color: #f8f8f8;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .read-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(to right, #d4af37, #f9e076);
+            color: #1e3c72;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .read-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .read-btn i {
+            margin-right: 8px;
+        }
+        
+        .completion-badge {
+            text-align: center;
+            padding: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            border-top: 1px solid #3a6186;
+            display: none;
+        }
+        
+        .completed .completion-badge {
+            display: block;
+        }
+        
+        .completed .read-btn {
+            background: linear-gradient(to right, #3a6186, #89253e);
+            color: #f8f8f8;
+        }
+        
+        .progress-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .progress-title {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #d4af37, #f9e076);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            color: #a2c1da;
+        }
+        
+        .quote {
+            font-style: italic;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #d4af37;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
@@ -246,8 +421,21 @@
                 font-size: 0.7rem;
             }
             
-            .dua-buttons {
+            .dua-buttons, .countdown {
                 flex-direction: column;
+            }
+            
+            .countdown-box {
+                min-width: 70px;
+                padding: 15px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .course-container {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -292,6 +480,40 @@
             50% { opacity: 1; }
             100% { opacity: 0.2; }
         }
+        
+        /* Section Titles */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin: 50px 0 30px;
+            color: #d4af37;
+            font-size: 2.2rem;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(to right, #3a6186, #89253e);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -314,7 +536,38 @@
             <p class="date-display">Counting the days until we begin our eternal journey together</p>
         </header>
         
+        <!-- Countdown Timer -->
+        <div class="countdown-container">
+            <h2 class="section-title">Countdown to Our Nikah</h2>
+            <div class="countdown">
+                <div class="countdown-box">
+                    <div class="countdown-value" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-container">
+            <button class="nav-btn" onclick="scrollToSection('pathway-section')">Spiritual Pathway</button>
+            <button class="nav-btn" onclick="scrollToSection('prep-course')">Marriage Preparation</button>
+            <button class="nav-btn" onclick="scrollToSection('dua-section')">Garden of Duas</button>
+        </div>
+        
         <!-- Celestial Pathway -->
+        <h2 class="section-title" id="pathway-section">Our Spiritual Pathway</h2>
         <div class="pathway-container">
             <div class="pathway"></div>
             
@@ -353,10 +606,170 @@
             <button class="close-btn" id="close-btn">Continue Journey</button>
         </div>
         
+        <!-- Islamic Marriage Prep Course -->
+        <h2 class="section-title" id="prep-course">Islamic Marriage Preparation</h2>
+        <div class="progress-container">
+            <h3 class="progress-title">Your Progress</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-text" id="progress-text">0% Complete</p>
+        </div>
+        
+        <div class="quote">
+            "And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts." (Quran 30:21)
+        </div>
+        
+        <div class="course-container">
+            <!-- Day 1 -->
+            <div class="day-card" id="day1">
+                <div class="card-header">
+                    <div class="day-number">Day 1</div>
+                    <div class="day-title">The Purpose of Marriage in Islam</div>
+                </div>
+                <div class="card-content">
+                    <p>In Islam, marriage is a sacred covenant (mithaqun ghalithun) between two people. It's not just a physical or emotional union, but a spiritual bond with the purpose of:</p>
+                    <p>• Achieving tranquility and peace</p>
+                    <p>• Fulfilling half of your faith</p>
+                    <p>• Procreating and raising righteous children</p>
+                    <p>• Protecting one's chastity and fulfilling desires in a halal way</p>
+                    <button class="read-btn" onclick="markAsCompleted('day1')"><i class="fas fa-book"></i> Mark as Read</button>
+                </div>
+                <div class="completion-badge">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+            </div>
+            
+            <!-- Day 2 -->
+            <div class="day-card" id="day2">
+                <div class="card-header">
+                    <div class="day-number">Day 2</div>
+                    <div class="day-title">Rights and Responsibilities</div>
+                </div>
+                <div class="card-content">
+                    <p>Islam clearly defines the rights and responsibilities of both spouses to create balance in marriage:</p>
+                    <p>• Mutual respect and kindness</p>
+                    <p>• The wife's right to financial support</p>
+                    <p>• The husband's right to be obeyed in what is right</p>
+                    <p>• Mutual consultation in family matters</p>
+                    <p>• Education and protection of children</p>
+                    <button class="read-btn" onclick="markAsCompleted('day2')"><i class="fas fa-book"></i> Mark as Read</button>
+                </div>
+                <div class="completion-badge">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+            </div>
+            
+            <!-- Day 3 -->
+            <div class="day-card" id="day3">
+                <div class="card-header">
+                    <div class="day-number">Day 3</div>
+                    <div class="day-title">Communication in Islamic Marriage</div>
+                </div>
+                <div class="card-content">
+                    <p>Effective communication is essential for a successful marriage. Islamic teachings emphasize:</p>
+                    <p>• Speaking with kindness and respect</p>
+                    <p>• Avoiding harsh words and criticism</p>
+                    <p>• Practicing active listening</p>
+                    <p>• Resolving disputes privately and with wisdom</p>
+                    <p>• The importance of smiling and gentle speech</p>
+                    <button class="read-btn" onclick="markAsCompleted('day3')"><i class="fas fa-book"></i> Mark as Read</button>
+                </div>
+                <div class="completion-badge">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+            </div>
+            
+            <!-- Day 4 -->
+            <div class="day-card" id="day4">
+                <div class="card-header">
+                    <div class="day-number">Day 4</div>
+                    <div class="day-title">Financial Wisdom in Marriage</div>
+                </div>
+                <div class="card-content">
+                    <p>Islam provides guidance on financial matters within marriage:</p>
+                    <p>• The husband's responsibility to provide</p>
+                    <p>• The wife's right to her own wealth</p>
+                    <p>• Avoiding extravagance and waste</p>
+                    <p>• Giving charity regularly</p>
+                    <p>• Planning for the family's future</p>
+                    <p>• Transparency in financial matters</p>
+                    <button class="read-btn" onclick="markAsCompleted('day4')"><i class="fas fa-book"></i> Mark as Read</button>
+                </div>
+                <div class="completion-badge">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+            </div>
+            
+            <!-- Day 5 -->
+            <div class="day-card" id="day5">
+                <div class="card-header">
+                    <div class="day-number">Day 5</div>
+                    <div class="day-title">Spiritual Intimacy</div>
+                </div>
+                <div class="card-content">
+                    <p>Building spiritual connection strengthens marital bonds:</p>
+                    <p>• Praying together when possible</p>
+                    <p>• Reading and studying Quran together</p>
+                    <p>• Fasting together occasionally</p>
+                    <p>• Making dua for each other</p>
+                    <p>• Attending Islamic lectures and events together</p>
+                    <p>• Creating an Islamic environment at home</p>
+                    <button class="read-btn" onclick="markAsCompleted('day5')"><i class="fas fa-book"></i> Mark as Read</button>
+                </div>
+                <div class="completion-badge">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+            </div>
+            
+            <!-- Day 6 -->
+            <div class="day-card" id="day6">
+                <div class="card-header">
+                    <div class="day-number">Day 6</div>
+                    <div class="day-title">Conflict Resolution</div>
+                </div>
+                <div class="card-content">
+                    <p>Islam provides guidance for resolving marital disputes:</p>
+                    <p>• Seeking mediation when needed</p>
+                    <p>• Avoiding anger and harsh words</p>
+                    <p>• Practicing patience and forgiveness</p>
+                    <p>• Remembering the temporary nature of disputes</p>
+                    <p>• Focusing on solutions rather than blame</p>
+                    <p>• Making up after arguments</p>
+                    <button class="read-btn" onclick="markAsCompleted('day6')"><i class="fas fa-book"></i> Mark as Read</button>
+                </div>
+                <div class="completion-badge">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+            </div>
+            
+            <!-- Day 7 -->
+            <div class="day-card" id="day7">
+                <div class="card-header">
+                    <div class="day-number">Day 7</div>
+                    <div class="day-title">Building a Blessed Home</div>
+                </div>
+                <div class="card-content">
+                    <p>Creating an Islamic household environment:</p>
+                    <p>• Establishing regular prayers</p>
+                    <p>• Reciting Quran in the home</p>
+                    <p>• Displaying Islamic art and calligraphy</p>
+                    <p>• Practicing gratitude and contentment</p>
+                    <p>• Maintaining family ties</p>
+                    <p>• Creating traditions centered around Islamic holidays</p>
+                    <button class="read-btn" onclick="markAsCompleted('day7')"><i class="fas fa-book"></i> Mark as Read</button>
+                </div>
+                <div class="completion-badge">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+            </div>
+        </div>
+        
         <!-- Dua Grove -->
+        <h2 class="section-title" id="dua-section">Garden of Duas</h2>
         <div class="grove-container">
-            <h2 class="grove-title">Garden of Duas</h2>
-            <p>Select a prayer to plant in your spiritual garden</p>
+            <h2 class="grove-title">Plant Prayers in Your Spiritual Garden</h2>
+            <p>Select a prayer to nurture your relationship with Allah</p>
             
             <div class="dua-buttons">
                 <button class="dua-btn" data-dua="blessing">Blessing for Marriage</button>
@@ -372,6 +785,33 @@
     </div>
 
     <script>
+        // Set your wedding date here (format: Year, Month-1, Day)
+        const weddingDate = new Date(2024, 11, 15);
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate - now;
+            
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // Update the display
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Initial update
+        updateCountdown();
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+        
         // Milestone interaction
         const milestones = document.querySelectorAll('.milestone');
         const revelationCard = document.getElementById('revelation-card');
@@ -412,95 +852,4 @@
                 <p>The patience you exercise now will strengthen your marriage in the future.</p>`
             },
             5: {
-                title: "Gratitude in Marriage",
-                content: `<p>Expressing gratitude to Allah and to each other is essential for a blessed marriage. The Prophet (PBUH) said: "Whoever does not thank people has not thanked Allah."</p>
-                <p class="verse">لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ</p>
-                <p>"If you are grateful, I will surely increase you." (Quran 14:7)</p>
-                <p>Make gratitude a daily practice in your relationship with Allah and with each other.</p>`
-            },
-            6: {
-                title: "Shared Faith",
-                content: `<p>Shared faith is the strongest foundation for marriage. The Quran describes believing spouses as garments for each other - providing protection, comfort, and dignity.</p>
-                <p class="verse">هُنَّ لِبَاسٌ لَّكُمْ وَأَنتُمْ لِبَاسٌ لَّهُنَّ</p>
-                <p>"They are clothing for you and you are clothing for them." (Quran 2:187)</p>
-                <p>Your shared faith will be the source of strength throughout your marriage.</p>`
-            },
-            7: {
-                title: "Eternal Togetherness",
-                content: `<p>In Islam, marriage is not just for this world but can extend into Paradise. Righteous spouses are reunited in Jannah for eternity.</p>
-                <p class="verse">جَنَّاتُ عَدْنٍ يَدْخُلُونَهَا وَمَنْ صَلَحَ مِنْ آبَائِهِمْ وَأَزْوَاجِهِمْ وَذُرِّيَّاتِهِمْ</p>
-                <p>"Gardens of perpetual residence, which they will enter with whoever were righteous among their fathers, their spouses, and their children." (Quran 13:23)</p>
-                <p>Strive to make your marriage a means of entering Paradise together.</p>`
-            }
-        };
-        
-        // Dua content
-        const duas = {
-            blessing: {
-                text: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
-                translation: '"Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous." (Quran 25:74)'
-            },
-            harmony: {
-                text: "اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا، وَأَصْلِحْ ذَاتَ بَيْنِنَا، وَاهْدِنَا سُبُلَ السَّلَامِ",
-                translation: '"O Allah, bring our hearts together, reconcile between us, guide us to paths of peace."'
-            },
-            guidance: {
-                text: "رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا",
-                translation: '"Our Lord, grant us from Yourself mercy and prepare for us from our affair right guidance." (Quran 18:10)'
-            },
-            patience: {
-                text: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
-                translation: '"Our Lord, pour upon us patience and plant firmly our feet and give us victory over the disbelieving people." (Quran 2:250)'
-            }
-        };
-        
-        // Add event listeners to milestones
-        milestones.forEach(milestone => {
-            milestone.addEventListener('click', () => {
-                const day = milestone.getAttribute('data-day');
-                revelationTitle.textContent = revelations[day].title;
-                revelationContent.innerHTML = revelations[day].content;
-                revelationCard.classList.add('active');
-                overlay.classList.add('active');
-            });
-        });
-        
-        // Close revelation card
-        closeBtn.addEventListener('click', () => {
-            revelationCard.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-        
-        // Add event listeners to dua buttons
-        duaButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const duaType = button.getAttribute('data-dua');
-                groveDisplay.innerHTML = `
-                    <div>
-                        <p style="font-size: 1.8rem; margin-bottom: 15px; direction: rtl;">${duas[duaType].text}</p>
-                        <p>${duas[duaType].translation}</p>
-                    </div>
-                `;
-            });
-        });
-        
-        // Create random stars
-        function createStars() {
-            const pathwayContainer = document.querySelector('.pathway-container');
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                star.style.width = Math.random() * 3 + 2 + 'px';
-                star.style.height = star.style.width;
-                star.style.top = Math.random() * 100 + '%';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 4 + 's';
-                pathwayContainer.appendChild(star);
-            }
-        }
-        
-        // Initialize
-        createStars();
-    </script>
-</body>
-</html>
+                title: "G
