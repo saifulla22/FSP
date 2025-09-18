@@ -1,249 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Journey to Jannah</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      overflow-x: hidden;
-    }
-
-    /* 🌌 Animated Star Background */
-    body::before {
-      content: '';
-      position: fixed;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(white, transparent) 1px 1px,
-                  radial-gradient(white, transparent) 2px 2px;
-      background-size: 50px 50px;
-      animation: starMove 60s linear infinite;
-      opacity: 0.6;
-    }
-    @keyframes starMove {
-      from {transform: translate(0,0);}
-      to {transform: translate(-500px,-500px);}
-    }
-
-    /* 🌙 Glowing Crescent Moon */
-    .moon {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      box-shadow: -30px 0 0 0 gold;
-      margin: 40px auto;
-      position: relative;
-    }
-    .moon::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      top: 0;
-      left: 0;
-      background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 70%);
-      animation: pulse 4s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { transform: scale(1);}
-      50% { transform: scale(1.1);}
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      color: gold;
-      text-shadow: 0 0 15px gold, 0 0 25px #ffdd44;
-      margin-top: 10px;
-    }
-
-    /* ✨ Milestone Timeline */
-    .timeline {
-      position: relative;
-      margin: 50px auto;
-      padding: 0;
-      list-style: none;
-      max-width: 800px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      height: 100%;
-      width: 3px;
-      background: gold;
-      transform: translateX(-50%);
-    }
-    .timeline li {
-      position: relative;
-      margin: 40px 0;
-      width: 45%;
-      padding: 20px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.1);
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
-      animation: fadeUp 1s ease forwards;
-      opacity: 0;
-    }
-    .timeline li:nth-child(odd) {
-      left: 0;
-    }
-    .timeline li:nth-child(even) {
-      left: 55%;
-    }
-    .timeline li::before {
-      content: '';
-      position: absolute;
-      top: 20px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: gold;
-      box-shadow: 0 0 10px gold, 0 0 20px white;
-    }
-    .timeline li:nth-child(odd)::before { right: -35px; }
-    .timeline li:nth-child(even)::before { left: -35px; }
-    @keyframes fadeUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    /* 📜 Revelation Card */
-    .card {
-      margin: 50px auto;
-      padding: 20px;
-      max-width: 500px;
-      background: rgba(255,255,255,0.1);
-      border: 2px solid gold;
-      border-radius: 15px;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-    .card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* 🌷 Dua Garden */
-    .garden {
-      margin: 50px auto;
-      max-width: 700px;
-      text-align: center;
-    }
-    .garden h2 {
-      color: gold;
-      margin-bottom: 20px;
-    }
-    .duas {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }
-    .dua {
-      padding: 12px 18px;
-      border: 2px solid gold;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: 0.3s;
-      background: rgba(255,255,255,0.1);
-    }
-    .dua.selected {
-      background: gold;
-      color: black;
-      box-shadow: 0 0 20px gold, 0 0 30px white;
-      transform: scale(1.1);
-    }
-    .flowers {
-      margin-top: 30px;
-      font-size: 2rem;
-    }
-
-    /* 📱 Mobile Fix */
-    @media(max-width: 768px) {
-      .timeline::before { left: 20px; }
-      .timeline li {
-        width: calc(100% - 40px);
-        left: 40px !important;
-      }
-      .timeline li::before { left: -30px !important; right: auto !important; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey to Jannah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(to bottom, #0c1445, #1c2e6d, #2c3e50);
+            color: #f8f8f8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #e6d16c, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .date-display {
+            font-style: italic;
+            margin-top: 20px;
+            color: #a2c1da;
+        }
+        
+        /* Celestial Pathway */
+        .pathway-container {
+            position: relative;
+            margin: 50px auto;
+            height: 600px;
+            width: 95%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.5"/></svg>');
+            background-size: 200px 200px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .pathway {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 8px;
+            background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
+            transform: translateY(-50%);
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255, 175, 123, 0.5);
+        }
+        
+        .milestone {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #d4af37, #f9e076);
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .milestone:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+        }
+        
+        .milestone.active {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        
+        .milestone-label {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            color: #d4af37;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Revelation Card */
+        .revelation-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%;
+            max-width: 500px;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            transition: transform 0.5s ease;
+            text-align: center;
+            border: 2px solid #d4af37;
+        }
+        
+        .revelation-card.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .revelation-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .revelation-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .verse {
+            font-style: italic;
+            color: #a2c1da;
+            margin: 15px 0;
+            text-align: right;
+            direction: rtl;
+            font-size: 1.4rem;
+        }
+        
+        .close-btn {
+            background: linear-gradient(to right, #d4af37, #f9e076);
+            color: #1e3c72;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Dua Grove */
+        .grove-container {
+            text-align: center;
+            margin: 60px 0;
+            padding: 30px;
+            background: rgba(26, 35, 61, 0.6);
+            border-radius: 15px;
+        }
+        
+        .grove-title {
+            font-family: 'Playfair Display', serif;
+            color: #d4af37;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+        
+        .dua-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .dua-btn {
+            background: linear-gradient(to right, #3a6186, #89253e);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dua-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .grove-display {
+            min-height: 200px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .pathway-container {
+                height: 500px;
+            }
+            
+            .milestone-label {
+                font-size: 0.7rem;
+            }
+            
+            .dua-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        /* Overlay for modal */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 90;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* Crescent moon decoration */
+        .crescent {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border-radius: 50%;
+            box-shadow: -10px 10px 0 0 #d4af37;
+            transform: rotate(45deg);
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- 🌙 Moon -->
-  <div class="moon"></div>
-  <h1>Our Journey to Jannah</h1>
-
-  <!-- ✨ Timeline -->
-  <ul class="timeline">
-    <li>🌸 First Meeting - A moment written by destiny</li>
-    <li>💌 Family Blessings - The dua that binds hearts</li>
-    <li>🌙 Nikah - Our eternal covenant</li>
-    <li>🏡 Building a home filled with love and faith</li>
-  </ul>
-
-  <!-- 📜 Revelation Card -->
-  <div class="card" id="revelation">
-    “Together, we walk on the path lit by Allah’s mercy,  
-    towards Jannah, hand in hand.”
-  </div>
-
-  <!-- 🌷 Dua Garden -->
-  <div class="garden">
-    <h2>Choose 2 Duas for Our Journey 🌷</h2>
-    <div class="duas">
-      <div class="dua">Blessings of Rizq</div>
-      <div class="dua">Strong Imaan</div>
-      <div class="dua">Barakah in Time</div>
-      <div class="dua">Healthy Family</div>
-      <div class="dua">Peaceful Hearts</div>
-      <div class="dua">Guidance to Jannah</div>
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Crescent Moon -->
+    <div class="crescent"></div>
+    
+    <!-- Random Stars -->
+    <div class="star" style="width: 3px; height: 3px; top: 20%; left: 15%;"></div>
+    <div class="star" style="width: 5px; height: 5px; top: 30%; left: 80%; animation-delay: 1s;"></div>
+    <div class="star" style="width: 4px; height: 4px; top: 60%; left: 40%; animation-delay: 2s;"></div>
+    <div class="star" style="width: 3px; height: 3px; top: 75%; left: 25%; animation-delay: 0.5s;"></div>
+    <div class="star" style="width: 4px; height: 4px; top: 45%; left: 65%; animation-delay: 3s;"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Our Journey to Jannah</h1>
+            <p class="subtitle">Building a Marriage That Extends to the Hereafter</p>
+            <p class="date-display">Counting the days until we begin our eternal journey together</p>
+        </header>
+        
+        <!-- Celestial Pathway -->
+        <div class="pathway-container">
+            <div class="pathway"></div>
+            
+            <!-- Milestones -->
+            <div class="milestone" style="left: 10%;" data-day="1">
+                <div class="milestone-label">Mercy</div>
+            </div>
+            <div class="milestone" style="left: 25%;" data-day="2">
+                <div class="milestone-label">Peace</div>
+            </div>
+            <div class="milestone" style="left: 40%;" data-day="3">
+                <div class="milestone-label">Companionship</div>
+            </div>
+            <div class="milestone" style="left: 55%;" data-day="4">
+                <div class="milestone-label">Patience</div>
+            </div>
+            <div class="milestone" style="left: 70%;" data-day="5">
+                <div class="milestone-label">Gratitude</div>
+            </div>
+            <div class="milestone" style="left: 85%;" data-day="6">
+                <div class="milestone-label">Faith</div>
+            </div>
+            <div class="milestone" style="left: 95%;" data-day="7">
+                <div class="milestone-label">Eternity</div>
+            </div>
+        </div>
+        
+        <!-- Revelation Card -->
+        <div class="revelation-card" id="revelation-card">
+            <h3 id="revelation-title">Mercy Between Hearts</h3>
+            <div class="revelation-content" id="revelation-content">
+                <p>In Islam, mercy is the foundation of a successful marriage. The Prophet Muhammad (PBUH) said: "The most perfect of believers in belief is the best of them in character, and the best of you are those who are best to their women."</p>
+                <p class="verse">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+                <p>"And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts." (Quran 30:21)</p>
+            </div>
+            <button class="close-btn" id="close-btn">Continue Journey</button>
+        </div>
+        
+        <!-- Dua Grove -->
+        <div class="grove-container">
+            <h2 class="grove-title">Garden of Duas</h2>
+            <p>Select a prayer to plant in your spiritual garden</p>
+            
+            <div class="dua-buttons">
+                <button class="dua-btn" data-dua="blessing">Blessing for Marriage</button>
+                <button class="dua-btn" data-dua="harmony">Prayer for Harmony</button>
+                <button class="dua-btn" data-dua="guidance">Seeking Guidance</button>
+                <button class="dua-btn" data-dua="patience">Strength in Patience</button>
+            </div>
+            
+            <div class="grove-display" id="grove-display">
+                Select a prayer to begin cultivating your spiritual garden
+            </div>
+        </div>
     </div>
-    <div class="flowers" id="flowers"></div>
-  </div>
 
-  <script>
-    // 📜 Reveal Card
-    window.addEventListener("scroll", () => {
-      const card = document.getElementById("revelation");
-      if(window.scrollY > 400) {
-        card.classList.add("visible");
-      }
-    });
-
-    // 🌷 Dua Garden Logic
-    const duas = document.querySelectorAll(".dua");
-    const flowers = document.getElementById("flowers");
-    let selected = [];
-
-    duas.forEach(d => {
-      d.addEventListener("click", () => {
-        if(d.classList.contains("selected")) {
-          d.classList.remove("selected");
-          selected = selected.filter(s => s !== d.innerText);
-        } else if(selected.length < 2) {
-          d.classList.add("selected");
-          selected.push(d.innerText);
+    <script>
+        // Milestone interaction
+        const milestones = document.querySelectorAll('.milestone');
+        const revelationCard = document.getElementById('revelation-card');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('close-btn');
+        const revelationTitle = document.getElementById('revelation-title');
+        const revelationContent = document.getElementById('revelation-content');
+        const groveDisplay = document.getElementById('grove-display');
+        const duaButtons = document.querySelectorAll('.dua-btn');
+        
+        // Revelation content for each milestone
+        const revelations = {
+            1: {
+                title: "Mercy Between Hearts",
+                content: `<p>In Islam, mercy is the foundation of a successful marriage. The Prophet Muhammad (PBUH) said: "The most perfect of believers in belief is the best of them in character, and the best of you are those who are best to their women."</p>
+                <p class="verse">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+                <p>"And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts." (Quran 30:21)</p>`
+            },
+            2: {
+                title: "Peace in the Home",
+                content: `<p>A peaceful home is a blessing from Allah. The Quran describes the ideal marital relationship as one filled with tranquility and peace.</p>
+                <p class="verse">هُوَ الَّذِي خَلَقَكُم مِّن نَّفْسٍ وَاحِدَةٍ وَجَعَلَ مِنْهَا زَوْجَهَا لِيَسْكُنَ إِلَيْهَا</p>
+                <p>"It is He who created you from a single soul and made from it its mate that he might dwell in security with her." (Quran 7:189)</p>
+                <p>Reflect on how you can contribute to creating a peaceful atmosphere in your future home.</p>`
+            },
+            3: {
+                title: "Companionship in Worship",
+                content: `<p>The best marriages are those where spouses help each other worship Allah and attain nearness to Him.</p>
+                <p class="verse">رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا</p>
+                <p>"Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous." (Quran 25:74)</p>
+                <p>Consider how you and your spouse can support each other's spiritual growth.</p>`
+            },
+            4: {
+                title: "The Virtue of Patience",
+                content: `<p>Patience (sabr) is among the greatest virtues in Islam, especially in relationships. The Quran promises great reward for those who practice patience.</p>
+                <p class="verse">إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ</p>
+                <p>"Indeed, the patient will be given their reward without account." (Quran 39:10)</p>
+                <p>The patience you exercise now will strengthen your marriage in the future.</p>`
+            },
+            5: {
+                title: "Gratitude in Marriage",
+                content: `<p>Expressing gratitude to Allah and to each other is essential for a blessed marriage. The Prophet (PBUH) said: "Whoever does not thank people has not thanked Allah."</p>
+                <p class="verse">لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ</p>
+                <p>"If you are grateful, I will surely increase you." (Quran 14:7)</p>
+                <p>Make gratitude a daily practice in your relationship with Allah and with each other.</p>`
+            },
+            6: {
+                title: "Shared Faith",
+                content: `<p>Shared faith is the strongest foundation for marriage. The Quran describes believing spouses as garments for each other - providing protection, comfort, and dignity.</p>
+                <p class="verse">هُنَّ لِبَاسٌ لَّكُمْ وَأَنتُمْ لِبَاسٌ لَّهُنَّ</p>
+                <p>"They are clothing for you and you are clothing for them." (Quran 2:187)</p>
+                <p>Your shared faith will be the source of strength throughout your marriage.</p>`
+            },
+            7: {
+                title: "Eternal Togetherness",
+                content: `<p>In Islam, marriage is not just for this world but can extend into Paradise. Righteous spouses are reunited in Jannah for eternity.</p>
+                <p class="verse">جَنَّاتُ عَدْنٍ يَدْخُلُونَهَا وَمَنْ صَلَحَ مِنْ آبَائِهِمْ وَأَزْوَاجِهِمْ وَذُرِّيَّاتِهِمْ</p>
+                <p>"Gardens of perpetual residence, which they will enter with whoever were righteous among their fathers, their spouses, and their children." (Quran 13:23)</p>
+                <p>Strive to make your marriage a means of entering Paradise together.</p>`
+            }
+        };
+        
+        // Dua content
+        const duas = {
+            blessing: {
+                text: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+                translation: '"Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous." (Quran 25:74)'
+            },
+            harmony: {
+                text: "اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا، وَأَصْلِحْ ذَاتَ بَيْنِنَا، وَاهْدِنَا سُبُلَ السَّلَامِ",
+                translation: '"O Allah, bring our hearts together, reconcile between us, guide us to paths of peace."'
+            },
+            guidance: {
+                text: "رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا",
+                translation: '"Our Lord, grant us from Yourself mercy and prepare for us from our affair right guidance." (Quran 18:10)'
+            },
+            patience: {
+                text: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+                translation: '"Our Lord, pour upon us patience and plant firmly our feet and give us victory over the disbelieving people." (Quran 2:250)'
+            }
+        };
+        
+        // Add event listeners to milestones
+        milestones.forEach(milestone => {
+            milestone.addEventListener('click', () => {
+                const day = milestone.getAttribute('data-day');
+                revelationTitle.textContent = revelations[day].title;
+                revelationContent.innerHTML = revelations[day].content;
+                revelationCard.classList.add('active');
+                overlay.classList.add('active');
+            });
+        });
+        
+        // Close revelation card
+        closeBtn.addEventListener('click', () => {
+            revelationCard.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Add event listeners to dua buttons
+        duaButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const duaType = button.getAttribute('data-dua');
+                groveDisplay.innerHTML = `
+                    <div>
+                        <p style="font-size: 1.8rem; margin-bottom: 15px; direction: rtl;">${duas[duaType].text}</p>
+                        <p>${duas[duaType].translation}</p>
+                    </div>
+                `;
+            });
+        });
+        
+        // Create random stars
+        function createStars() {
+            const pathwayContainer = document.querySelector('.pathway-container');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = Math.random() * 3 + 2 + 'px';
+                star.style.height = star.style.width;
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                pathwayContainer.appendChild(star);
+            }
         }
-        if(selected.length === 2) {
-          flowers.innerHTML = "🌸🌼 Your garden is blooming with " + selected.join(" & ");
-        } else {
-          flowers.innerHTML = "";
-        }
-      });
-    });
-  </script>
+        
+        // Initialize
+        createStars();
+    </script>
 </body>
 </html>
